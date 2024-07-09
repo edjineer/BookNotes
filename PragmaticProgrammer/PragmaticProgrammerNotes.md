@@ -34,7 +34,22 @@ Preface
 * Software Economy
   * **T4 Don't live with broken windows**
   * Broken window theory: broken window = small things lead to bigger problems
-* Stone Soup and a Boiled Frog
+* Stone Soup and Boiled Frogs
+  * Soldiers were catalyst to bring the group together
+  * "Start up fatigue" = guarding resources
+  * People find it easier to join a an ongoing success
+  * **T5: be a catalyst for change**
+  * Gentle and gradual deception
+  * **T6: Remember the big picture**
+  * Take time to look around to view the bigger picture before it's too late (frog soup)
+* Good Enough Software
+  * Software is often better in shorter incubation
+  * Involve users in the trade off process
+  * **T7: Make Quality a Requirements Issue**
+  * Rough edges today can be better than waiting a year with nothing good in the meantime
+  * Know When to stop: from an artists perspective
+* Your Knowledge Portfolio
+  * a
 
 ## 2. A Pragmatic Approach
 
