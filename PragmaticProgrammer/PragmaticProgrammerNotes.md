@@ -2,6 +2,11 @@
 
 Authors: Andrew Hunt and David Thomas, 1999
 
+## Revisit Later
+
+* Pg 15 list of ways to stay current
+* "Dinosaur Brains" = book recommendation
+
 ## Intro
 
 Forward
@@ -49,7 +54,26 @@ Preface
   * Rough edges today can be better than waiting a year with nothing good in the meantime
   * Know When to stop: from an artists perspective
 * Your Knowledge Portfolio
-  * a
+  * Knowledge is an expring asset: it gets out of date quickly
+  * Invest in your knowledge regularly, diversify it, manage risk (dont put all your eggs in one basket), rebalance regularly (the industry changes rapidly)
+  * **T8: Invest regularly in your knowledge portfolio**
+  * Pg 15 has recommendations on staying current
+  * When you can't answer a question, find someone who can, and learn from them
+  * **T9: Critically Analyze what you read and hear**
+  * "Care and cultivation of gurus" = man a lot of this is easier now with Chat GPT, but you HAVE to apply the critical thinking lense to it
+* Communicate
+  * "A good idea is an orphan without effective communication"
+  * Ideas for effective communication
+    * Know what to say
+    * Know your audience
+    * Choose your moment
+    * Choose a style (just the facts)
+    * Make it look good
+    * Involve your audience
+    * Be a listener
+    * Get back to people
+    * **T10: Its both what you say and the way you say it**
+
 
 ## 2. A Pragmatic Approach
 
