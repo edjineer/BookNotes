@@ -214,6 +214,21 @@ Preface
 
 ## 4. Pragmatic Paranoia
 
+* Intro
+  * **T30:** You can't write perfect software
+  * Code defensively (similar to driving defensively)
+  * Validate all Info we are given
+  * Don't trust yourself either
+  * Design by contract: clients and suppliers must agree on rights and responsibilities
+* Design by Contract (DBC)
+  * Defines your rights and responsibilities
+  * Repercussions if eitehr party fails the contract
+  * Preconditions
+  * Postconditions
+  * Class Invariants
+
+
+
 ## 5. Bend, or Break
 
 ## 6. While you are Coding
