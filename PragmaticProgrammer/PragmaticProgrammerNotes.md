@@ -9,11 +9,16 @@ Authors: Andrew Hunt and David Thomas, 1999
 * Singleton pattern
   * Design Patterns [GHJv95]
 * Unix Philosophy
-* Shell Games! pg 79 
+* Shell Games! pg 79
   * Ask GPT for fun exercises/prompts for mastering the shell
 * Gnu General Publisher's License
 * Cygwin
 * Active and Passive Code Generators
+* Is javas final keyword similar to cpps const?
+* "More Effective C++" Mey 1996
+* "Large Scale C++ Software Design" by John Lakos
+* UML Activity Diagram
+
 
 Discuss with butler:
 
@@ -226,15 +231,104 @@ Preface
   * Preconditions
   * Postconditions
   * Class Invariants
-
-
+  * **T31:** Design with Contracts
+  * Assertions
+    * Downside: not prpopgated to children
+* Dead Programs tell no lies
+  * **T32** Crash Early
+  * A dead program does less damage than a crippled one
+* Assertive Programming
+  * **T33**: If it can't happen, use assertions to ensure it won't happen
+  * Don't turn off asserts in production code
+* When to use Exceptions
+  * **T34:** Use Exceptions for exceptional problems
+  * Java has a "Remote Method Invocation" facility
+* How to balance Resources
+  * **T35:**: Finish what you Start
+  * Similarities to Ctor and Dtor
 
 ## 5. Bend, or Break
 
+* Intro
+  * Adaptability to Life's changes
+  * Write less code to stay most flexible
+  * Metaprogramming
+* Decoupling and the Law of Demeter
+  * Isolation between services is a good thing
+  * Unecessary coupling leads to fear when a code change happens
+  * **T36**: Minimize Coupling between Modules
+* Metaprogramming
+  * **T37:** Configure, don't integrate
+  * Metadata is accessed and used at runtime not compile time
+  * **T38:** Put abstractions in the code, details in the Metadata
+  * Program for the general case, put the specifics elsewhere
+* Temporal Decoupling
+  * Concurrency
+  * **T39:** Analyze workflow to improve concurrency 
+  * **T40**: Design using services: independent concurrent objects behind well-defined, consistent interfaces
+  * **T41**: Always design for concurrency
+* It's Just a View
+  * A good definition of a module is that it has a single well-defined responsibility
+  * Events: can be used to minimize coupling between objects
+  * Publish/subscribe protocol
+  * **T42** Separate Views from Modules
+  * Model View Controller review
+* Blackboards
+  * **T43**: Use blackboards to coordinate workflow
+
 ## 6. While you are Coding
+
+* Intro
+* Programming by Coincidence
+  * **T44:** Don't program by coincidence
+* Algorithm Speed
+  * **T45:** Estimate the order of your algorithms
+  * **T46:** Test your estimates
+* Refactoring
+* **T47:** Refactor early, refactor often
+* Code that's easy to test
+  * **T48:** Design to test
+  * **T49:** Test your software or your users will
+* Evil Wizards
+  * **T50:** Don't use wizard code you don't understand
 
 ## 7. Before the Project
 
+* Intro
+* The Requirements Pit
+  * **T51:** Don't gather requirements, dig for them
+  * **T52:** Work with a user to think like a user
+  * **T53:** Abstractions live longer thna details
+  * **T54:** Use a project Glossary
+* Solving Impossible Puzzles
+  * **T55:** Don't think outside the box, find the box
+* Not until you're ready
+  * **T56:** Listen to nagging doubts: start when you're ready
+* The Specification trap
+  * **T57:** Some things are better done than described
+* Circles and Arrows
+  * **T58:** Don't be a slave to formal methods
+  * **T59:** Expensive tools do not produce better designs
+
 ## 8. Pragmatic Projects
+
+* Intro 
+* Pragmatic Teams 
+  * **T60**: Organize around functionality, not job functions
+* Ubiquitous Automation
+  * **T61** Don't use manual procedures
+* Ruthless Testing
+  * **T62**: Test Early. Test Often. Test Automatically
+  * **T63**: Coding aint done till all the tests runtime
+  * **T64:** Use sabeteurs to test your Testing
+  * **T65**: Test state coverage, not code coverage
+  * **T66**: Find bugs once
+* It's all Writing
+  * **T67**: Treat English as another programming language
+  * **T68**: Build Documentation in, dont bolt it once
+* Great Expectations
+  * **T69**: Gently exceed your users expectations
+* Pride and Prejudice
+  * **T70**: Sign your work
 
 ## Resources
