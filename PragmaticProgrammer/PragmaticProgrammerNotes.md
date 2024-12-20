@@ -280,12 +280,28 @@ Preface
 
 * Intro
 * Programming by Coincidence
+  * False conclusions can lead to disaster
+  * Program Deliberately
+  * Undocumented behavior may change with a future release
+  * Don't code blindfolded
+  * Make Plans
+  * Rely only on reliable things
+  * Document your assumptions. Test your assumptions
+  * Don't be a slave to history
   * **T44:** Don't program by coincidence
 * Algorithm Speed
-  * **T45:** Estimate the order of your algorithms
+  * Estimate your resources (speed, memory, etc)
+  * Big O notation
+  * Common Sense estimation
+  * **T45:** Estimate the order of your algorithms (like the magnitude)
+  * Use code profilers to count how many times steps get executed
+  * Fastest might not always be best. There are tradeoffs
   * **T46:** Test your estimates
 * Refactoring
-* **T47:** Refactor early, refactor often
+  * **T47:** Refactor early, refactor often
+  * SW is gardening: it is organic. Some decisions thrive, others are compost
+  * Reasons to refactor: Duplication, Nonorthogonal design, Outdated knowledge, and performance.
+  * 
 * Code that's easy to test
   * **T48:** Design to test
   * **T49:** Test your software or your users will
@@ -312,8 +328,8 @@ Preface
 
 ## 8. Pragmatic Projects
 
-* Intro 
-* Pragmatic Teams 
+* Intro
+* Pragmatic Teams
   * **T60**: Organize around functionality, not job functions
 * Ubiquitous Automation
   * **T61** Don't use manual procedures
