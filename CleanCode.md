@@ -124,6 +124,7 @@ Notes
 Discussion Topics
 
 * Jeff Langr is author, what is his background
+  * Cpp with test driven development, Clean Agil, Java
 * Private Utilities used by public function
 * Agree with "Classes should be small?"
 * I think its more inconveneint to have to hunt through dozens of files when it could be in one class
