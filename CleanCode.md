@@ -155,4 +155,41 @@ Notes
 
 ## Chapter 9: Unit Tests
 
+Discussion Topics:
+
+* Do we do TDD? Or is it too granular?
+* Second law, no idea what he's saying
+* Thoughts on single concept per test?
+
+Notes:
+
+* Intro
+  * This chapter is written by Uncle Bob
+  * In 1997 Test Driven Development was not a thing
+  * Apparently people used to throw the test code away
+  * Now look for nooks and crannies
+  * Three Laws
+    1. You may not write production code until you've written a failing unit test
+    2. You may not write more of a unit test than is sufficient to fail, and not compiling is failing
+    3. You may not write more production code than is sufficient to pass the currently failing test
+* Keeping Tests Clean
+  * "Dirty tests > no tests"
+  * The dirtier the tests, the harder they are to update
+  * Dirty tests lead to the whole suite being thrown out
+  * Higher test coverage, the less you need to fear changes
+* Clean Tests
+  * What makes a clean test: readability
+  * What makes a bad test: duplicate code, irrelevant details, code that is not designed to be read, domain specific testing language
+* One Assert Per Test
+  * Kinda a JSUnit specific thing
+  * Allows for a quick conclusion to be made
+  * Eh, more like asserts per test should minimized
+  * Single Concept per test is a better guideline
+* "FIRST"
+  * Fast
+  * Independent
+  * Repeatable
+  * Self-Validating: Boolean output
+  * Timely: Written just before or right after prod code is written
+
 ## Chapter 13: Concurrency
