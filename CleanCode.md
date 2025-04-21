@@ -7,8 +7,11 @@ By Robert C Martin, 2009
 * Jar, war, ear files
 * Additional Authors per chapter
 * Practice classifying Object Oriented vs Procedural Code
+* Kent Beck: four rules of Simple Design
 
-## Chapter 2: Meaningful Names
+## Book Club Chapters
+
+### Chapter 2: Meaningful Names
 
 Discussion Questions
 
@@ -48,9 +51,7 @@ Notes
 * Use Solution Domain Names
 * Don't add Gratuitous Context
 
-
-
-## Chapter 7: Error Handling
+### Chapter 7: Error Handling
 
 Discussion Questions
 
@@ -81,7 +82,7 @@ Notes
 * Don't return null
 * Don't pass null
 
-## Chapter 6: Objects and Data Structures
+### Chapter 6: Objects and Data Structures
 
 Discussion Topics
 
@@ -119,7 +120,7 @@ Notes
 * Activate Record
   * DSs with public variables, but also safe and find navigate methods
 
-## Chapter 10: Classes
+### Chapter 10: Classes
 
 Discussion Topics
 
@@ -153,7 +154,7 @@ Notes
   * Isolating From Change
   * Dependency Inversion Principle: Classes should depend on abstractions, not concrete details
 
-## Chapter 9: Unit Tests
+### Chapter 9: Unit Tests
 
 Discussion Topics:
 
@@ -192,4 +193,58 @@ Notes:
   * Self-Validating: Boolean output
   * Timely: Written just before or right after prod code is written
 
-## Chapter 13: Concurrency
+### Chapter 13: Concurrency
+
+Author: Brett Schuchert
+
+Discussion Topics:
+
+* aaa
+
+Details:
+
+* aaa
+
+## Bonus Chapters
+
+### Chapter 11: Systems
+
+Author: Kevin Dean Wampler
+
+Details
+
+* Cities are run by many people: big picture vs details
+* Construction vs Use
+  * Keep in mind the Single Responsibility Principle
+  * Idea: All construction in main
+  * Abstract Factory
+  * Dependency Injection
+  * Scaling Up
+    * Getting things "right the first time" is a myth
+  * Test Drive the System Architecture
+    * Not Necessary to do a Big Design Up Front
+  * Optimize Decision Making
+  * Use Standards when they add demonstrable value
+  * At all levels, intetn should be clear
+  * Use the simplest thing that can possibly work
+
+### Chapter 12: Emergence
+
+Author: Jeff Langr
+
+Details:
+
+* Kent Beck: four rules of Simple Design
+  1. Run all the tests
+      * Systems that arent testable are not verifiable
+      * ...and should never be deployed
+      * Tests should follow SRP
+  2. Contains no duplication
+      * Dupliction is enemy of a well designed system
+  3. Expresses the intent of the programmer
+      * Cost is long-term maintenance
+      * Choose good names
+      * Keep functions small
+      * Just try to be expressive, explain for the next coder
+  4. Minimize the number of classes and methods
+      * Keep function and class counts low
