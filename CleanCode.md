@@ -8,6 +8,7 @@ By Robert C Martin, 2009
 * Additional Authors per chapter
 * Practice classifying Object Oriented vs Procedural Code
 * Kent Beck: four rules of Simple Design
+* 
 
 ## Book Club Chapters
 
@@ -199,13 +200,81 @@ Author: Brett Schuchert
 
 Discussion Topics:
 
-* aaa
+* I don't think the tips alone are enough; using a "sync" keyword does not enforce anything. Locks and mutexes have a higher chance to be effective
+* Copies of data is not always a good idea; shared memory with locks is another option
 
 Details:
 
-* aaa
+* Intro
+  * Clean concurrent programs are hard
+  * Concurrent programs may look clean but can break under stress
+* Why Concurrency
+  * Decoupling Straetegy: separate what gets done from when it gets done
+  * Improves throughput and structure of applications
+  * Allows processing in parallel
+* Myths and misconceptions
+  * "Always improves performance": no, improves more when there is a lot of wait that can be split between muptiple threads or processors
+  * "Design does not chance gor concurrency"
+* Challenges
+* Concurrency Defense Principles
+  * Single responsibility principle
+    * Keep your concurrency related code separate from other code
+  * Limit The Scope of Data: Protect critical sections of code
+  * Take data encapsulation to heart; limit access of any data that may be shared
+  * Use Copies of data
+    * Avoids synchronizing
+  * Threads should be independent
+    * Partition data into independent subsets
+* Know your Library
+* Know Execution Models
+  * Producer/Consumer
+  * Readers/Writers
+* Beware Dependencies between Synchronized Methods
+  * Locking: client based, server based, adapted server
+* Keep syncronized sections small
+* Writing Correct Shut-Down Code is hard
+  * Issues: Deadlock, zombie threads
+* Testing Threaded Code
+  * Write tests that expose potential problems
+  * Treat Spurious Failure as Candidate Threading Issues
+    * One-off problems are never actually one-off
+  * Get your non-threaded code working first
+  * Make it pluggable, adaptable to multiple configurations
+  * Make it tunable
+  * Run with more threads than processors
+  * Run on different platforms
+  * Instrument your code to force failures
+* Options to Debug
+  * Inject waits, yield, sleep, priority
+  * Inject some "jiggling"
+
+Appendix A: Concurrency II pg 317
+
+* Client Server Example
+  * Validate the throughput of your system
+* Possible Paths of Execution
+* Knowing your Library
+  * NonBlocking Solutions
+  * Dependencies between methods can break concurrent code
+* Increasing Throughput
+  * Mutex
+  * Lock & Wait
+  * No preemption
+  * Circular Wait
 
 ## Bonus Chapters
+
+### Chapter 3: Functions
+
+Details
+
+* Goal = Easy to read and understand
+* Small
+  * No bigger than a screen-full
+* Do one thing
+  * Do it only, do it well
+* One level of abstraction per function
+  * 
 
 ### Chapter 11: Systems
 
