@@ -29,7 +29,10 @@ Topics to experiment with
 * Empty base optimizations
 * Move Semantics (C++11)
 * Safe assignment idiom
-
+* Memory Tagging Extensions MTEs
+* CAR Hoare
+* How do C++ Unions work? Active member
+* Common initial sequence
 
 
 Questions
@@ -42,6 +45,8 @@ Takeways
 
 * Definition of C++ Object (pg11)
 * Lifetime of Automatic, Static, and dynamic objects (ch1)
+* Define and explain IFNDR, ODR, UB
+* Explain casts: static_cast, dynamic_cast, const_cast, reinterpret_cast, bit_cast, duration_cast, c cast 
 
 
 ## Notes from Chapters
@@ -153,7 +158,7 @@ Things You Should Know
 
 ### Part 1: Memory in C++
 
-#### 1. Objects, Pointers and References
+#### 1. Objects, Pointers and References (ch1)
 
 * Recommendation to start at "Things You Should Know" in Annex (pg 24)
 * Representation of Memory in C++
@@ -217,35 +222,81 @@ Understanding the Fundamental properties of objects
   * Array = contiguous sequence of elements of the same type
   * `std::string a1[20]`
 
-#### Things to be Careful With
+#### Things to be Careful With (Ch2)
+
+Intro
+
+* Ways that trouble forms:
+  * The compiler cannot reliably diagnose the issue
+  * Type casting
 
 Different kinds of Evil
 
-* Ill-formed, no diagnostic required
-* Undefined behavior
+* Ill-formed, no diagnostic required IFNDR
+  * Means forgram is broken
+  * One definition rul ODR is example of INDR
+  * Example: ODR violated, one def has differnet alignment than other in different translation units
+* Undefined behavior UB
+  * No idea what will happen at runtime
+  * Compiler might remove UB code to make it unreachable
 * Implementation-defined Behavior
+  * Behavior that happens on a specific platform, but might be different on others
+  * Examples: Max nested parens, max case labels in a switch, size of an object, bits in a byte, bytes in an int, char being signed or unsigned
+  * Spell out your assumptions through static_asserts so it can be validated at compile time on a different platform
 * Unspecified behavior (not documented)
+  * "Valid but unspecified" behavior
 * The ODR: One definition rule
+  * One def of an object/fcn etc per translation unit, but can be declared multiple times 
 * Erroneous behavior
+  * UB, but Boundaries are provided to the consequences, may be introduced in Cpp26
+  * Ex: Read from uninitialized variable 
 
 Pointers
 
 * Uses of pointer arithmetic within an array
+  * If you jump out of array, UB
 * Pointer interconvertibility
+  * Use one pointer to point to other castable object
 * Uses of pointer arithmetic within an object
   * The null pointer
+    * Express it as `nullptr`
+    * nullptr is not a ptr, it implicitly converts to a pointer
+    * Dereference nulltpr is UB
 
 Type Punning
 
+* Intro
+  * Subverting the languages type system
 * Type Punning throuhg memebers of a union
+  * Uniion = type where members are all at same address
+  * Size of union is size of largets member
   * Common initial sequence
 * The intptr_t and uintptr_t types
+  * Aliases for int type to hold an address
 * The std::memcpy function
+  * Can start the lifetime of an object
 * The special cases of char* unsigned char* adn std::byte*
+  * Can point anywhere and alias anything
 * The std::start_lifetime_as<T>() function
+  * C++23
+  * Take arguments and return pointer to T pointing to buffer
 
 
-#### Casts and cv-qualifications
+#### Casts and cv-qualifications (ch3)
+
+What is a cast
+
+Safety in the type system - cv qualifications
+
+The C++ Casts
+
+* Your best friend most of the time: sttic_cast
+* A sign something is wrong: dynamic_cast
+* Playing tricks withsafety: const_cast
+* "Believe me compiler": reinterpret_cast
+* I know the bits are right: bit_cast
+* duration_cast
+* The reviled one: c_cast
 
 ### Part 2: Implicit Memory Management Techniques
 
