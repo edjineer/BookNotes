@@ -23,12 +23,26 @@ Topics to experiment with
 * Deep dive into qualifiers and/or value categories
 * Reference collapsing
 * Magic statics
+* Pointer Arithmetic and why reference arithmetic isnt a thing
+* Forward declarations
+* Private Inheritance
+* Empty base optimizations
+* Move Semantics (C++11)
+* Safe assignment idiom
+
+
 
 Questions
 
 * pg 400: how can it = 0 when it is a void return type
 * Talk through dynamic dispatch vs static dispatch
-* 
+* sizeof(char) is 1 byte, short is 2, int is 4
+
+Takeways
+
+* Definition of C++ Object (pg11)
+* Lifetime of Automatic, Static, and dynamic objects (ch1)
+
 
 ## Notes from Chapters
 
@@ -38,6 +52,7 @@ Questions
 * Wide range: basics to advanced to get equal ground and build mastery
 * Practical and Theoretical
 * Modern tips that set a strong foundation for any level in a code base that prioritizes quality
+* Well explained examples
 
 ### Fwd/Intro Sections
 
@@ -160,11 +175,75 @@ Things You Should Know
     * To initialize to nullptr, you can `int * p = 0; int * p = nullptr`
     * Don't do pointer arithmetic, it's just silly
     * Special Types for pointer manipulation
-      * `void*`: A "Generic Pointer", or address with no associated type. All ptrs implicitlyconvert to void *. Used in C 
+      * `void*`: A "Generic Pointer", or address with no associated type. All ptrs implicitlyconvert to void *. Used in C
       * `char*`: pointer to a byte, can be anything in memory
       * `std::byte*`: new pointer to a byte since C++17, a replacement for char* with a better name
+  * References
+    * Reference = alias for existing entity
+    * Pointers are objects( they use space, have a type and an address), but References are not objects (no storage)
+    * No such thing as reference arithmetic; so references are a bit safer than pointers
+
+Understanding the Fundamental properties of objects
+
+* Object Lifetime
+  * C++ Strength is control over lifetime of objects
+  * Automatic objects are destroyed at end of scope in defined order
+  * Static Objects are desticted on program termination
+  * Dynamically allocated objects are destroyed when program says so
+  * Pointer(automatic mobject) vs pointeee(dynamic object if declared with new)
+* Object Size, Alignment, and padding
+  * `sizeof` operator makes compile time non-zero object, results in number of bytes
+  * Smallest unit for an object in C++ is 1 byte
+  * C++ does not standardize the size of all fundamental types
+  * Empty Base Optimization: if base is empy, then it gets flattened into the derived classes
+  * Alignment of memory makes sure objects round up to power of 2
+    * `alignof` operator yeilds natural alignment
+    * `alignas` lets you control alignment of an object. can only increase, not reduce alignment
+    * The order you declare in class affects memory: char, short, int takes up less than short, int, char. Each type has to line up with memory address boundary for access (int is on a 4 byte accessible address)
+* Copy and movement
+  * Six Member cuntions are special:
+    * Default CTor
+    * Dtor
+    * Copy Ctor
+    * Move assignment
+    * Move Ctor
+    * Move assignment
+  * If you wrote custom for one, then either write custom for all, or do `= default` for others
+  * Rule of Five
+  * Copy Operators
+    * Safe assignment idiom: copy and swap
+  * Move operations
+* Arrays
+  * Array = contiguous sequence of elements of the same type
+  * `std::string a1[20]`
 
 #### Things to be Careful With
+
+Different kinds of Evil
+
+* Ill-formed, no diagnostic required
+* Undefined behavior
+* Implementation-defined Behavior
+* Unspecified behavior (not documented)
+* The ODR: One definition rule
+* Erroneous behavior
+
+Pointers
+
+* Uses of pointer arithmetic within an array
+* Pointer interconvertibility
+* Uses of pointer arithmetic within an object
+  * The null pointer
+
+Type Punning
+
+* Type Punning throuhg memebers of a union
+  * Common initial sequence
+* The intptr_t and uintptr_t types
+* The std::memcpy function
+* The special cases of char* unsigned char* adn std::byte*
+* The std::start_lifetime_as<T>() function
+
 
 #### Casts and cv-qualifications
 
