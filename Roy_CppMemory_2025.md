@@ -42,6 +42,9 @@ Topics to experiment with
 * Test out the throwing from a dtor, should see crash
 * thread_local, globals, static comparison
 * history of auto_ptr
+* Empty Base Optimization EBO
+* std::void_t
+* Substitution failure is not an error SFINAE
 
 
 Questions
@@ -58,7 +61,8 @@ Takeways
 * Explain casts: static_cast, dynamic_cast, const_cast, reinterpret_cast, bit_cast, duration_cast, c cast
 * RAII: helps to automate actions through DTors
 * When ctor'd and dtor'd: static objects, automatic objects
-* Smart Pointers: unique_ptr and shared_ptr
+* Smart Pointers: unique_ptr and shared_ptr, raw pointers (pg 129/108)
+
 
 
 ## Notes from Chapters
@@ -464,16 +468,27 @@ When to use raw ptrs
 Intro
 
 * Ownership Semantics
+  * Smart pointers are all about clarifying ownership over indirectly accessed resources
+  * Great table to reference on pg 129
 
 Writing your own unique_ptr
 
 * Type Signature
+  * Type, and deleter are input parameters
+  * 2 types: scalar and array unique_ptr
+  * Deleters should be stateless and use EBO Empty base optimization
 * Special Member Functions
 * Pointer-like functions
+  * different for scalar and array cases
 
 Writing your own shared_ptr
 
+* Details
+  * Harder because it has two responsibilities: co-owning, and counter management
+  * Synchronization is required to avoid a data race
 * Make_shared
+  * Instead of `std::shared_ptr<X>p{new X {}}`, do `auto p = std::make_shared<X>`
+  * Make_shared will allocate bot hthe object and counter in same allocation of memory, puts them both on the same cache line
 
 Writing a policy-based duplicating pointer
 
@@ -489,6 +504,22 @@ Some not-so-smart but useful smart pointers
 ### Part 3: Taking Control of Memory Management Mechanisms
 
 #### 7. Overloading Memory Allocation Operators
+
+[PICK UP HERE]
+
+Intro 
+
+* Why overload allocation functions?
+* Overview of X language allocation functions
+
+Overview of C++ Allocation Operators
+
+* Global allocation operators 
+* Non throwing versions of allocation operators
+* Operator new placement new
+* Member versions of the allocation operators
+* Alignment aware versions of the allocation operators
+* Destroying Delete
 
 #### 8. Writing a Naiive Leak Detector
 
