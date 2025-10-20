@@ -38,6 +38,10 @@ Topics to experiment with
 * Can you derive from multiple classes? `class D : public D0, public D1 {};` pg51
 * RTTI: runtime type information
 * Space implications of virtual, hinted details from pg62
+* RAII
+* Test out the throwing from a dtor, should see crash
+* thread_local, globals, static comparison
+* history of auto_ptr
 
 
 Questions
@@ -51,7 +55,10 @@ Takeways
 * Definition of C++ Object (pg11)
 * Lifetime of Automatic, Static, and dynamic objects (ch1)
 * Define and explain IFNDR, ODR, UB
-* Explain casts: static_cast, dynamic_cast, const_cast, reinterpret_cast, bit_cast, duration_cast, c cast 
+* Explain casts: static_cast, dynamic_cast, const_cast, reinterpret_cast, bit_cast, duration_cast, c cast
+* RAII: helps to automate actions through DTors
+* When ctor'd and dtor'd: static objects, automatic objects
+* Smart Pointers: unique_ptr and shared_ptr
 
 
 ## Notes from Chapters
@@ -163,7 +170,7 @@ Things You Should Know
 
 ### Part 1: Memory in C++
 
-#### 1. Objects, Pointers and References (ch1)
+#### 1. Objects, Pointers and References
 
 * Recommendation to start at "Things You Should Know" in Annex (pg 24)
 * Representation of Memory in C++
@@ -227,7 +234,7 @@ Understanding the Fundamental properties of objects
   * Array = contiguous sequence of elements of the same type
   * `std::string a1[20]`
 
-#### Things to be Careful With (Ch2)
+#### 2. Things to be Careful With
 
 Intro
 
@@ -287,7 +294,7 @@ Type Punning
   * Take arguments and return pointer to T pointing to buffer
 
 
-#### Casts and cv-qualifications (ch3)
+#### 3. Casts and cv-qualifications
 
 Intro 
 
@@ -333,7 +340,7 @@ The C++ Casts
 
 ### Part 2: Implicit Memory Management Techniques
 
-#### Using Destructors
+#### 4. Using Destructors
 
 Intro
 
@@ -348,36 +355,155 @@ Managing Resources
 * Almost any function could throw (only those with `noexcept` won't)
   * We want code to be exception safe, and exception neutral (no leaks, and don't hide the exception)
 * Exception Handling...or not
-  * [PICK UP HERE]
+  * Requirements for throwing an exception are different than handling an exception
+  * Best practice is to automate handling exceptions
 
 RAII Idiom
 
+* RAII = Resource Acquisition is initialization
+* Objects acquire resources at construction, and release resources at the end of the lifetime. More to do with Dtors than ctors
+* Using scope to automate actions
+* RAII and C++'s special member functions
+
 Pitfalls
+
+* Dtors should not throw, bad idea to do so
+  * Ctors CAN and should throw
+  * Dtors are implicitly `noexcept`, will call an `std::terminate`
+* Know destruction order
+  * Generally things are dtor'd in reverse construction order
+  * More complicated with non-automatic objects
+    * Static objects: constructed when fccn is called for first time, dtored until whole program ends
+    * Global objects are destroyed in reverse order of construction, but construction might be tricky
+    * Example pg 70
+      * Class's static ctored first
+      * Then Globals Ctor'd next
 
 Standard Resource Management and Automation Tools
 
-#### Using Standard Smart Pointers
+* unique_ptr<T> and shared_ptr<T>
+  * Smart pointer types
+  * unique_ptr
+    * uncopiable
+    * destroys the pointee at the end of the lifetime
+    * Calls delete on the pointer it manages
+    * Default unique_ptr represents an empty object, works like a nullptr
+    * Expresses exclusive ownership of a resource
+  * shared_ptr
+    * Shared ownership of resource
+    * The last co-owner is in charge of freeing the object
+    * Default shared pointer is an empty object
+* lock_guard and scoped_lock
+  * Autmates locking and unloakcing the mutex
+* stream objects
+  * iostream and fstream have good dtors that close streams
+* vector<T> and other containers
+  * Using vector is safer and faster than dynamically allocated arrays
 
-#### Writing Smart Pointers
+
+#### 5. Using Standard Smart Pointers
+
+Intro
+
+* Advise against using raw pointers
+* auto_ptr used to exist and has been removed
+* Standard Smart Pointers
+  * With raw pointers, we cannot tell who is responsible for pointer and pointee. Does not give clear ownership info
+* Exposition of intent through function signatures
+  * Owning a pointee is not the same thing as sharing a pointee
+  * Function signatures convey meaning
+
+Type unique_ptr
+
+* Handling Objects
+  * Unique_ptr object is Non-copyable
+  * Can't do pointer arithmetic on unique_ptr
+  * Size of unique_ptr is the size of the object'pointer it is pointing to
+* Handling Arrays
+  * Unique+ptr has a specialization for arrays
+* Custom Deleters
+  * Unique_ptr will not work inherently with private or protected fcns
+  * UP can take a custom deleter unique_ptr<T, D>, D might need to be a friend of T
+* make_unique
+  * Factory function that forwards its arguments to ctor of T, allocates and contructs T
+  * Serves as a security feature to avoid exposing ownerless resources
+* Most of the time, unique_ptr is your best bet as a smart pointer
+  * It is small
+
+Type shared_ptr and weak_ptr
+
+* When unique_ptr is not the best choice
+  * Shared wnership is needed 
+  * Last owner of the resource is not known ahead of time
+  * Concurrent code
+* shared_ptr attributes 
+  * copy ctor(shares resource and ++ the counter),
+  * copy assignment (decrements cunter), and
+  * dtor (decrement counter, and destroy if counter is now zero)
+* Usefullness and costs
+  * Size of shared_ptr is greater than size of unique_pointer
+  * shared_ptr is not cheap, maintaining the counter requires synchronization
+  * Two allocations (one for object, and one for counter)
+  * Less efficient
+* make_shared()
+  * Can alleviate allocation costs
+* weak_ptr
+  * narrower niche than shared_ptr
+  * Temporary ownership
+  * Doesnt own resource until you call lock on it
+  * Can be used to break cycles if shared_ptr objects refer to each other
+
+When to use raw ptrs
+
+* Only in controlled situations
+* Function needs to be an observer, not owner of the type
+* Neede for low level interfaces like system calls
+
+#### 6. Writing Smart Pointers
+
+Intro
+
+* Ownership Semantics
+
+Writing your own unique_ptr
+
+* Type Signature
+* Special Member Functions
+* Pointer-like functions
+
+Writing your own shared_ptr
+
+* Make_shared
+
+Writing a policy-based duplicating pointer
+
+* Detection through interfaces
+* Detection through traits
+* Detection through concepts
+
+Some not-so-smart but useful smart pointers
+
+* non_null_ptr type
+* observer_ptr type
 
 ### Part 3: Taking Control of Memory Management Mechanisms
 
-#### Overloading MEmory Allocation Operators
+#### 7. Overloading Memory Allocation Operators
 
-#### Writing a Naiive Leak Detector
+#### 8. Writing a Naiive Leak Detector
 
-#### Atypical Allocation Mechanisms
+#### 9. Atypical Allocation Mechanisms
 
-#### Arena-Based Memory Management and Other Optimizations
+#### 10. Arena-Based Memory Management and Other Optimizations
 
-#### Deferred Reclamation
+#### 11. Deferred Reclamation
 
 ### Part 4: Writing Generic Containers
 
-#### Writing Generic Containers with explicit Memory Management
+#### 12. Writing Generic Containers with explicit Memory Management
 
-#### Ditto with Implicit Memory Management
+#### 13. Ditto with Implicit Memory Management
 
-#### Ditto with Allocator Support
+#### 14. Ditto with Allocator Support
 
-#### Contemporary Issues
+#### 15. Contemporary Issues
