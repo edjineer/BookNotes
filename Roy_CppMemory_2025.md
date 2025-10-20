@@ -33,6 +33,11 @@ Topics to experiment with
 * CAR Hoare
 * How do C++ Unions work? Active member
 * Common initial sequence
+* Const at various parts (function, etc)
+* Why static_cast works with constexpr
+* Can you derive from multiple classes? `class D : public D0, public D1 {};` pg51
+* RTTI: runtime type information
+* Space implications of virtual, hinted details from pg62
 
 
 Questions
@@ -284,23 +289,72 @@ Type Punning
 
 #### Casts and cv-qualifications (ch3)
 
-What is a cast
+Intro 
 
-Safety in the type system - cv qualifications
+* What is a cast
+  * Cast = adjust the cpmpiler's view on a type
+* Safety in the type system - cv qualifications
+  * `const` qualifier
+    * Object is immutable in its current scope
+    * Having a `int f() const {}` needs to apply const to its members, trasitively
+    * "Const correct"
+  * `volatile`qualifier
+    * `volatile int` = object can be accessed in ways unknown to compiler. Example = drivers
+    * Prevents optimizations that compiler would otherwise do
+    i/O operation
 
 The C++ Casts
 
 * Your best friend most of the time: sttic_cast
+  * Most efficient option: safe, costs nearly nothing, can be used with constexpr. Good for compile time maneuvers
+  * Ex: int to float, pointer to reference from derived class to a base
+  * Does not perform runtime checks
+  * Ok = convert from base class to derived class, but ensure runtime is fine
+  * Static_cast can change memory address accessed
 * A sign something is wrong: dynamic_cast
+  * Incorrect pointer conversion will be nullptr, incorrect reference conversion will throw bad_cast
+  * Runtime Type Information (RTTI)
 * Playing tricks withsafety: const_cast
+  * Used if you need to change cv qualifiers for an expression
+  * Removes  the const or volatile
+  * Only works on a pointer or reference
 * "Believe me compiler": reinterpret_cast
+  * Gives ability o cast a pointer of some type to a pointer of unrelated type
+  * Only changes the type associated with an expression
 * I know the bits are right: bit_cast
+  * C++20
+  * Copy bits of one object to another of the same width
 * duration_cast
+  * Added in C++11
+  * Used for microbenchmarking
+  * Found in stD::chrono library
+  *Convert between expressions of different measurement units
 * The reviled one: c_cast
 
 ### Part 2: Implicit Memory Management Techniques
 
 #### Using Destructors
+
+Intro
+
+* "The most beautiful instruction in C++ is }" oof
+* Dtors recap
+  * Typically `X::~X()`
+  * When running delete, the pointee is destroyed followed by deallocation of memory block
+  * Be sure to mark as virtual to call the right destructor (good example pg 62)
+
+Managing Resources
+
+* Almost any function could throw (only those with `noexcept` won't)
+  * We want code to be exception safe, and exception neutral (no leaks, and don't hide the exception)
+* Exception Handling...or not
+  * [PICK UP HERE]
+
+RAII Idiom
+
+Pitfalls
+
+Standard Resource Management and Automation Tools
 
 #### Using Standard Smart Pointers
 
