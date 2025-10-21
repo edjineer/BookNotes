@@ -10,6 +10,8 @@ Recommendations to explore later
 * [Other Resources from Packt Publishing](https://github.com/PacktPublishing/)
 * C++ Standard Sections:
   * Basics: https://eel.is/c++draft/basic.memobj
+* C++ High performance by Adnrist and Sehr
+* Refactoring with C++ by Danilov
 
 Topics to experiment with
 
@@ -523,18 +525,88 @@ Overview of C++ Allocation Operators
 
 #### 8. Writing a Naiive Leak Detector
 
+Intro
+
+Implementation Tips
+
+* Accounteant singleton class
+* Implementing te new and new[] operators
+* Implementing the delete and delete[] operators
+
 #### 9. Atypical Allocation Mechanisms
+
+Intro
+
+Placement new and memory mapped hardware
+
+Simplifying the nowthros new usage
+
+Out of memory situations and new_handler
+
+Standard C++ and Exotic Memory
 
 #### 10. Arena-Based Memory Management and Other Optimizations
 
+Intro
+
+Arena Based Memory Management
+
+When parameters change
+
+Chunked pools
+
 #### 11. Deferred Reclamation
+
+Intro
+
+Reclamation without finalization at the end of the program
+
+Reclamation and finalization at the end of the program
+
+Reclamation and finalization at the end of scope
 
 ### Part 4: Writing Generic Containers
 
 #### 12. Writing Generic Containers with explicit Memory Management
 
-#### 13. Ditto with Implicit Memory Management
+Intro
 
-#### 14. Ditto with Allocator Support
+Writing own vector
+
+Writing own forward_list
+
+Better Memory Management
+
+* More efficient vector
+* Low level standard facilities
+* Const or reference members and std::launder
+
+#### 13. Writing Generic Containers with Implicit Memory Management
+
+Intro 
+
+Why explicit memory management complicates our implementation
+
+Implicit memory management with a smart pointer
+
+Consequences of this redesign
+
+Generalizing to ForwardList<T>
+
+#### 14. Writing Generic Containers  with Allocator Support
+
+Intro
+
+* Why Allocators
+
+Traditional Allocators
+
+Polymorphic Memory Resource Allocators
 
 #### 15. Contemporary Issues
+
+Starting object lifetime without constructors
+
+Trivial Relocation
+
+Type-Aware Allocation and Deallocation Functions
