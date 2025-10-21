@@ -12,6 +12,7 @@ Recommendations to explore later
   * Basics: https://eel.is/c++draft/basic.memobj
 * C++ High performance by Adnrist and Sehr
 * Refactoring with C++ by Danilov
+* Effective C++: Specific Ways to Improve Your Programs and Designs, Scott Meyers
 
 Topics to experiment with
 
@@ -47,7 +48,17 @@ Topics to experiment with
 * Empty Base Optimization EBO
 * std::void_t
 * Substitution failure is not an error SFINAE
-
+* Heap Allocation Optimization HALO
+* Tag types like std::nothrow
+* Placement new
+* Small object optimization SOO
+* OVeraligned type requirements
+* Destroying delete
+* Singleton design pattern
+* Meyers singleton
+* Static Initialization order fiasco
+* Torn read and torn write in multithreaded programs
+* Implicit Lifetime types
 
 Questions
 
@@ -64,6 +75,8 @@ Takeways
 * RAII: helps to automate actions through DTors
 * When ctor'd and dtor'd: static objects, automatic objects
 * Smart Pointers: unique_ptr and shared_ptr, raw pointers (pg 129/108)
+* Why make_shared is a better call than shared_ptr
+* Define basics of a singleton design pattern
 
 
 
@@ -76,6 +89,7 @@ Takeways
 * Practical and Theoretical
 * Modern tips that set a strong foundation for any level in a code base that prioritizes quality
 * Well explained examples
+* Break open and craft versions to understnad how fundamental concepts actually work under the hood
 
 ### Fwd/Intro Sections
 
@@ -507,20 +521,45 @@ Some not-so-smart but useful smart pointers
 
 #### 7. Overloading Memory Allocation Operators
 
-[PICK UP HERE]
-
-Intro 
+Intro
 
 * Why overload allocation functions?
+  * There are generic solutions, and specific solutions out there
 * Overview of X language allocation functions
+  * malloc, free, calloc, realloc, etc
+  * `malloc(size_t n)`details
+    * Finds location where at least n consecutive bytes are available
+    * Returns an abstract pointer to beginning of the memory
+  * `free(void *p)` details
+    * Ensure memory pointed by p becomes available
+    * UB to use free on memory that did not originate from malloc
 
 Overview of C++ Allocation Operators
 
-* Global allocation operators 
+* Four general options: new, new[]. delete, and delete[]
+  * If you overload one, you should overload all four
+  * Errors manifest as `std::bad_alloc`
+* Global allocation operators
+  * new does not create objects; it finds locations where object will be constructed. The ctor turns that into an object
+    * 1. Allocate space
+    * 2. Construct object at that location
+  * Delete and delete[] take void* as argument
+    * Operator deletes Cannot destroy object: instead destroys pointed to obj, then free the memory
+      * 1. p->~X()
+      * 2. operator delete(p)
+    * There are size operator ones available too
 * Non throwing versions of allocation operators
+  * Provide additional argument `const std::nothrow_t&)` to operator new
+  * This would return nullptr instead of exception
+  * std::nothrow is a tag type
 * Operator new placement new
+  * Placement allocation functions = placement new
 * Member versions of the allocation operators
+  * Overloaded operators will be inherited by derived classes
 * Alignment aware versions of the allocation operators
+  * Overaligned type requirements (C++17)
+  * Some types have stricter alignment constraints than others
+  * To fix, add additional parameter to `operator new (std::size_t n, std::align_val_t a1)`
 * Destroying Delete
 
 #### 8. Writing a Naiive Leak Detector
@@ -529,7 +568,19 @@ Intro
 
 Implementation Tips
 
-* Accounteant singleton class
+* Plan Details
+  * Use overloaded global forms of memory allocation operators
+  * Those need to share some state
+  * Would need to use a global variable
+  * Singleton = class where there is only one instance in the program
+    * Difficult to test and mock
+    * Requires synchronization
+    * Reason for problems is shared mutable state that is globlally accessible throug the program
+    * For delete to work, it stores the size as first byte, then the rest of the bytes
+* Meyers Singleton
+  * Tries to avoid the static initialization order fiasco
+  * When you have multiple TUs, you cant know from the source code which order the globals will be constructed
+  * Resolved by declaring a singleton object as static local variabl
 * Implementing te new and new[] operators
 * Implementing the delete and delete[] operators
 
