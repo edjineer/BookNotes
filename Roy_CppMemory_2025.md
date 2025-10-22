@@ -59,6 +59,9 @@ Topics to experiment with
 * Static Initialization order fiasco
 * Torn read and torn write in multithreaded programs
 * Implicit Lifetime types
+* Immediately-invoked function expression IIFE
+* Variadic macro
+* Exotic Memory
 
 Questions
 
@@ -88,8 +91,10 @@ Takeways
 * Wide range: basics to advanced to get equal ground and build mastery
 * Practical and Theoretical
 * Modern tips that set a strong foundation for any level in a code base that prioritizes quality
-* Well explained examples
+* Well explained, interactive examples
 * Break open and craft versions to understnad how fundamental concepts actually work under the hood
+* Introduce to new specialties of the language that I had not played with before, and give good overviw where ill dive in deeper later
+* Practical and interesting
 
 ### Fwd/Intro Sections
 
@@ -588,19 +593,28 @@ Implementation Tips
 
 Intro
 
-Placement new and memory mapped hardware
-
-Simplifying the nowthros new usage
-
-Out of memory situations and new_handler
+* Benefits of taking control of memory allocation functions
+* Placement new and memory mapped hardware
+  * placement new allows us to map software objects to memory mapped hardware
+* Simplifying the nowthrow new usage
+  * Normally exceptions for operator new is from running out of memory, unable to service a request, etc
+  * Use a variadic macro
+* Out of memory situations and new_handler
 
 Standard C++ and Exotic Memory
+
+* Shared memory API example
 
 #### 10. Arena-Based Memory Management and Other Optimizations
 
 Intro
 
+* Performance is the focus of this chapter
+* Optimization is a moving target
+
 Arena Based Memory Management
+
+[PICK UP HERE]
 
 When parameters change
 
