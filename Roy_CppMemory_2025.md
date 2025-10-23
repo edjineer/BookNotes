@@ -62,6 +62,8 @@ Topics to experiment with
 * Immediately-invoked function expression IIFE
 * Variadic macro
 * Exotic Memory
+* Marking a class as final
+* Deferred Reclamation
 
 Questions
 
@@ -95,6 +97,8 @@ Takeways
 * Break open and craft versions to understnad how fundamental concepts actually work under the hood
 * Introduce to new specialties of the language that I had not played with before, and give good overviw where ill dive in deeper later
 * Practical and interesting
+* Excellent deep dive into concepts I was familiar with, and a great introduction to new features I hadnt deeply explored yet
+* contrast fundamental topics from other languages into C++, explores memory management holistically and where C++ fits in the general landscape 
 
 ### Fwd/Intro Sections
 
@@ -614,21 +618,48 @@ Intro
 
 Arena Based Memory Management
 
-[PICK UP HERE]
+* Main Idea
+  * Allocate a chunk of memory at a known point in the program and manage it as a small specialized heap
+* Variants on the theme of Arena based memory management
+  * Reduce memory framentation, only load what you use (example:levels in a game)
+  * Manage memory when certain conditions are met
+  * Express ownership for similar objects, and destroy altogether instead of one at a time
+* Example
+  * Good result is constant time allocation, no time deallocation
 
 When parameters change
 
+* Member function allocation operators are inherited by derived classes
+  * Could mark class as `final`
+
 Chunked pools
+
+* Pool or pre-allocated raw memory of selected block sizes
 
 #### 11. Deferred Reclamation
 
 Intro
 
-Reclamation without finalization at the end of the program
+* Not a common C++ thing, but more common in other languages
+* Mechanism to delay destruction of dynamically allocated objects at specific moments of execution in a program
+* Selected objects will be deliberately destroyed
+* Effect = Make programs faster, reduce memory fragmentation
+* Finalization is a more accepted term than destruction for other languages
+  * Code that is executed at the end of a lifetime
+* Reclamation = freeing memory for objects at select moments
+* What is meant by DR
+  * In garbage collector languages, the collector reclaimes the bytes
+  * Typically finalization is responsibility of client code, language takes care of collection
+  * Typically a special interface to be used
+  * Example = try block, then finally block (C++ does not have a finally block)
 
-Reclamation and finalization at the end of the program
+Examples
 
-Reclamation and finalization at the end of scope
+* Reclamation without finalization at the end of the program
+  * To reclaim, needs a globaly avalilable storage for pointers
+* Reclamation and finalization at the end of the program
+  * Free underlying storage and also finalize them by calling their destructors
+* Reclamation and finalization at the end of scope
 
 ### Part 4: Writing Generic Containers
 
