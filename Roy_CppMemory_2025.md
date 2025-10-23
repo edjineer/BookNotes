@@ -64,6 +64,10 @@ Topics to experiment with
 * Exotic Memory
 * Marking a class as final
 * Deferred Reclamation
+* Function inlining
+* Salient property
+* SSO and SOO optimizations
+* int is trivially constructible, std::string is not
 
 Questions
 
@@ -660,26 +664,36 @@ Examples
 * Reclamation and finalization at the end of the program
   * Free underlying storage and also finalize them by calling their destructors
 * Reclamation and finalization at the end of scope
+  * On demand
 
 ### Part 4: Writing Generic Containers
 
-#### 12. Writing Generic Containers with explicit Memory Management
+#### 12. Writing Generic Containers with Explicit Memory Management
 
 Intro
 
-Writing own vector
-
-Writing own forward_list
+* Containers managing memory
+* Writing own vector alternative
+  * Distinguish size from capacity as ints in class
+  * Track 3 pointers: beginning of storage, end of elements, end of storage
+  * Expose iterators
+  * Ctors
+  * Add elements to container with push_back and emplace_back
+  * grow function for when size exceeds capacity
+  * Insert and erase elements
+* Writing own forward_list alternative
 
 Better Memory Management
 
 * More efficient vector
+  * Distinguish allocation from construction
 * Low level standard facilities
 * Const or reference members and std::launder
+  * Oddities on containers that have consts
 
 #### 13. Writing Generic Containers with Implicit Memory Management
 
-Intro 
+Intro
 
 Why explicit memory management complicates our implementation
 
