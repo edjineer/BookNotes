@@ -68,6 +68,8 @@ Topics to experiment with
 * Salient property
 * SSO and SOO optimizations
 * int is trivially constructible, std::string is not
+* Responsibility semantics
+* Allocator aware
 
 Questions
 
@@ -690,18 +692,27 @@ Better Memory Management
 * Low level standard facilities
 * Const or reference members and std::launder
   * Oddities on containers that have consts
+* Summary
+  * Separated allocation from construction
+  * Object is responsible fo both managing memory block and the objects stored in it
 
 #### 13. Writing Generic Containers with Implicit Memory Management
 
 Intro
 
-Why explicit memory management complicates our implementation
-
-Implicit memory management with a smart pointer
-
-Consequences of this redesign
-
-Generalizing to ForwardList<T>
+* Why explicit memory management complicates our implementation
+* Implicit memory management with a smart pointer
+  * Change type of elements from T* to std::unique_ptr<T[]>
+  * Benefits:
+    * Deleting the array will be done implicitly now
+    * Smart pointer takes care of pointee as soon as its constructed
+    * Unique ptr is an RAII type that handles memory for us
+* Consequences of this redesign
+  * Simplifies interface
+  * No speed costs
+  * It is exception safe
+  * Works well for vector, might be more complicated for forward_list due to domino effect
+    * Lots of effort to transfer ownership to smart pointer in forward_list
 
 #### 14. Writing Generic Containers  with Allocator Support
 
