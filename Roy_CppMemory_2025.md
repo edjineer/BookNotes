@@ -70,6 +70,10 @@ Topics to experiment with
 * int is trivially constructible, std::string is not
 * Responsibility semantics
 * Allocator aware
+* Polymorphic memory resource allocators and containers
+* Traditional Allocator
+* Propogate on container copy assignment (POCCA), propogate on container swap (POCS), propogate on move assignment (POCMA)
+* PMR Allocators
 
 Questions
 
@@ -89,8 +93,6 @@ Takeways
 * Why make_shared is a better call than shared_ptr
 * Define basics of a singleton design pattern
 
-
-
 ## Notes from Chapters
 
 ### Impressions to incorporate into the review
@@ -105,6 +107,7 @@ Takeways
 * Practical and interesting
 * Excellent deep dive into concepts I was familiar with, and a great introduction to new features I hadnt deeply explored yet
 * contrast fundamental topics from other languages into C++, explores memory management holistically and where C++ fits in the general landscape 
+* Really well organized
 
 ### Fwd/Intro Sections
 
@@ -718,16 +721,48 @@ Intro
 
 Intro
 
+* Stl containers are allocator aware, delegate low level memory tasks to specilized objects
+* Allocators came into the standard in C++98
 * Why Allocators
+  * C++ is all about giving users control
+* Traditional Allocators
+  * `std::vector<T>` is actually `std::vector<T,A>` where A is allocator
+  * allocates through operator new, and deallocates by operator delete
+  * Before C++11
+    * Allocator represents unerlying memory, and defines types to describe the low level ideas
+    * Member functions had to be exposed
+    * Assumed to be stateless, but were not
+  * Example Usage: Sequential Buffer Allocator
+    * Assumes that there is proper alignment
+  * Traditional allocators with contemporary standards
+    * C++11 introduced allocator_traits
+    * C++23 adds static member function allocate_at_least
+  * Managing lifetime
+  * Irritants with traditional allocators
+    * No runtime costs (yay), but there are downsides
+    * Implementation is complex
+    * Sime operations that should probably be simple have become more complicated
 
-Traditional Allocators
+Polymorphic Memory Resource Allocators (PMR)
 
-Polymorphic Memory Resource Allocators
+* PMR added in C++17
+* PMR container stores allocator info as a runtime value; pmr container holds pointer to pmr allocator
+* Nested allocators (propogates allocation strategies by default)
+
+Summary
+
+* Allocators let us customize behavior of memory allocation in container
+* Writing and using the allocators has evolved through the years
 
 #### 15. Contemporary Issues
 
-Starting object lifetime without constructors
+Features that may or may not come in future C++ Standards
 
-Trivial Relocation
-
-Type-Aware Allocation and Deallocation Functions
+* Starting object lifetime without constructors
+  * `std::start_lifetime_as_array` and `std::start_lifetime_as<T>` C++23
+* Trivial Relocation
+  * Determine if relocating is trivial at compile time
+  * Could lead to speed-ups
+* Type-Aware Allocation and Deallocation Functions
+  * C++20 introduced destroying delete
+  * Provide new ways to control what memory allocation algorithm will be used
