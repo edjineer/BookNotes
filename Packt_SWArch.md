@@ -11,6 +11,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Zero cost abstraction
 * String_view vs string
 * SOLID and DRY Principles
+* SOAP: Simple object access protocol
 
 ### Links
 
@@ -23,7 +24,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 
 ### Questions
 
-* asdf
+* What are the traits of a RESTful service?
 
 ## Notes By Chapter
 
@@ -44,10 +45,33 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * liskov substitution (LSP): functions for base class must bea ble to take poitner of derived classes
   * interface segregation: have multiple small interfaces instead of one big one.
   * dependency inversion: high level modules should not depend on low level ones
-
-*
+* Dont repeat yourself: DRY
+* Ideal = high cohesion, low coupling
 
 #### Ch 2: Architectural Styles
+
+* Stateful vs Stateless
+  * Pros and cons: amount of info crammed into each message
+  * HTTPS is stateless, REST is stateless
+  * Example Stateful: FTP
+* Monoliths
+* Services and microservices
+  * Service oriented architecture
+  * Generally 2 types of services: SOAP and REST and newly gRPC
+* Microservices: usually communicate with network protocols
+  * Services should have smart endpoints and dumb pipes
+  * Benefits of microservices: modularity, better testability, flexibility, integration with legacy, scalability
+  * Disadvantages: needs mature devOps and CI/CD, IPC overhead
+  * Benefit: scalabiltiy
+* Event based architecture
+  * Mediator topology
+  * Broker Topology
+* Event Sourcing
+  * Snapshots are necessary
+* Layered architecture
+* Backends for frontends
+* Module based architecture
+* Hexagonal Architecture/Ports and adapters
 
 #### Ch 3: Functional and non-functional requirements
 
