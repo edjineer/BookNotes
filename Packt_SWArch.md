@@ -24,6 +24,10 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * CAP Theorem/Brewer;s theorem
 * BASE Semantics, PACELC theorem
 * Sagas and Eventual Consistency
+* SLAs
+* Redundancy patterns, replication patterns
+* Detecting faults
+* Minimizing impact through circuit breaker, bulkhead, geodes
 
 ### Links/References
 
@@ -31,6 +35,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * <https://github.com/PacktPublishing/SoftwareArchitecture-with-Cpp-2E>
 * Design Patterns: Elements of Reusable Object-Oriented Software (1994)
 * Talk: m Jeff Dean’s well-known talk Numbers Everyone Should Know <https://www.cs.cornell.edu/projects/ladis2009/talks/dean-keynote-ladis2009.pdf>
+* Gregor Hohpe and Bobby Woolf’s Enterprise Integration Patterns
 
 ### Notes for Review
 
@@ -38,6 +43,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Practical intro to software architecture essentials, ig picture view
 * Practical c++ examples with modern tools: cmake integration with Sphinx and doxygen, breathe
 * Connecting a lot of relevant pieces that Id only heard in passing but not set foundation to compare/contrast, like service models
+* Review questions
 
 ### Questions
 
@@ -214,8 +220,22 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
         * Choreography based sagas
         * Orchestration based sagas
 * Making system fault tolerant and available
-  * TODO: Pick up here
+  * Availability = percent time system is up and reachable
+  * SLA = Service level agreement with could to specify how much downtime can occur per year
+  * Building Fault tolerant systems
+    * Redundancy Patterns: failover, hot standby, active-passive failover, active active failover, leader election, consensus
+    * Replication Patterns: master-slave (all read, only one writes), multi-master replication, queue based load leveling, back pressure pattern
+    * Detecting faults: sidecar design, heartbeat mechanism, leaky bucket
+  * Handling faults
+    * Minimize the impact
+    * Retry pattern
+    * Avoid cscading failures: circuit breaker, bulkhead pattern, Geodes pattern
 * Integrating the system
+  * Pipes and filters
+  * Competing consumers
+  * Transitioning from legacy systems
+    * Anti corruption layer pattern
+    * Strangler pattern
 * Achieving performance at scale
 * Designing data storage
 * Deploying system
