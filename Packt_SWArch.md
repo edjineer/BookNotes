@@ -28,6 +28,11 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Redundancy patterns, replication patterns
 * Detecting faults
 * Minimizing impact through circuit breaker, bulkhead, geodes
+* Deployment patterns
+* 7 layers of OSI = open systems interconnection
+* C++
+  * Iterator hierarchy: contiguous, random-access, bidirectional, forward, input, output
+  * CTAD
 
 ### Links/References
 
@@ -237,13 +242,70 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
     * Anti corruption layer pattern
     * Strangler pattern
 * Achieving performance at scale
+  * CQRS = command query responsibility segregation
+    * Good for CRUD systems
+  * Command Query separation: separate API calls into separate queries
+    * Easier to reason about code, fewer heisenbugs
+  * Event Sourcing: Just store changes
+  * Caching Patterns
+    * Client side
+    * Web Server caches
+    * DB Caches
+    * Application Caches
+    * CDNs
+  * Updating caches
+    * Read through
+    * Write Through
+    * Write behind
+    * Cache aside/lazy loading
+    * Write around
+    * Refresh ahead: TTL = Time to live
 * Designing data storage
+  * Decide on SQL or NoSQL based on size of your DB
+  * Small DBs = SQL or SQLite
+  * If TB or bigger, NoSQL is better
+  * If 10 TN, then data warehouse
 * Deploying system
+  * Sidecar
+    * Ambassador and adapters
+  * Zero Downtime Deploymnts
+    * Blue green
+    * Canary Release pattern:
+  * External Configuration Store pattern
 * Managing APIs
+  * API management tools, comprised of:
+    * API Gateway, an entrypoint for all users
+    * Reporting and analytics
+    * Portal for developers
+    * Portal for admins
+    * Monetezation
+  * API Gateways
+    * Layer 7 routing
+    * OSI Model
+      * Physical 1, Data link 2, Network 3, Transport 4, Session 5, Presentation 6, Application 7
 
 #### Ch 5: Leveraging C++ Language Features
 
 * 174-218
+* Using RAII
+  * REsource acquisition is initialization
+  * Where stack based object lifetime is managed by creation and deletion
+  * Constructors and destructors
+* Specifying the interfaces of containers in C++
+  * Argument dependent lookup (ADL)
+  * Iterator hierarchy
+    * Concepts allow you to add static_assert to check a condition at compile time
+  * Deduction Guides
+  * Class Template argument deduction (introduced in C++ 17)
+* Using raw and smart pointers in interfaces
+  * TODO Pick up here
+* Specifying preconditions and postconditions
+* Employing inline namespaces
+* Applying std::optional
+* Using monadic interfaces
+* Writing declarative code
+* Moving computations to compile time
+* Leveraging the power of safe types
 
 #### Ch 6:Design Patterns and C++ Idioms
 
