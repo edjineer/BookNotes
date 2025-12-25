@@ -33,6 +33,8 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * C++
   * Iterator hierarchy: contiguous, random-access, bidirectional, forward, input, output
   * CTAD
+  * inline namespace
+  * SFINAE
 
 ### Links/References
 
@@ -41,6 +43,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Design Patterns: Elements of Reusable Object-Oriented Software (1994)
 * Talk: m Jeff Dean’s well-known talk Numbers Everyone Should Know <https://www.cs.cornell.edu/projects/ladis2009/talks/dean-keynote-ladis2009.pdf>
 * Gregor Hohpe and Bobby Woolf’s Enterprise Integration Patterns
+* Arvid Norberg’s The ABI Challenge talk from C++Now 2019
 
 ### Notes for Review
 
@@ -298,14 +301,31 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * Deduction Guides
   * Class Template argument deduction (introduced in C++ 17)
 * Using raw and smart pointers in interfaces
-  * TODO Pick up here
 * Specifying preconditions and postconditions
+  * Comments, if statements, or static asserts are options. Contracts might come in for C++26
 * Employing inline namespaces
+  * Application binary interface (ABI)
 * Applying std::optional
+  * Brought in with C++17
+  * Optional function parameters
+  * Optional function return values
+    * C++23's std::expected
+  * Optional Class Members
 * Using monadic interfaces
+  * Based on functional programming
+  * Monads = subtype of functors
+  * Category theory
 * Writing declarative code
+  * Imperative(code tells machine how to achieve goal) vs declarative (what you want to achieve)
 * Moving computations to compile time
+  * In 2000s, craze to compute during compile time instead of runtime
+  * constint, consteval, constexpr(declared that functions and vars can be evaluated at compile time, even though compiler decides whether it actually does it)
+  * const
 * Leveraging the power of safe types
+  * Casts are type-unsafe
+  * Consrain template parameters
+    * concepts
+    * SFINAE based type traits to enforce constraints
 
 #### Ch 6:Design Patterns and C++ Idioms
 
