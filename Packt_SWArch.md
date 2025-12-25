@@ -35,6 +35,9 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * CTAD
   * inline namespace
   * SFINAE
+  * Argument Dependent Lookup ADL, koenig lookup
+  * CRTP
+  * SSO/SBO.SOO
 
 ### Links/References
 
@@ -44,6 +47,8 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Talk: m Jeff Dean’s well-known talk Numbers Everyone Should Know <https://www.cs.cornell.edu/projects/ladis2009/talks/dean-keynote-ladis2009.pdf>
 * Gregor Hohpe and Bobby Woolf’s Enterprise Integration Patterns
 * Arvid Norberg’s The ABI Challenge talk from C++Now 2019
+
+- Sean Parent’s talk Inheritance Is The Base Class of Evil from the GoingNative 2013 conference.
 
 ### Notes for Review
 
@@ -330,10 +335,70 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 #### Ch 6:Design Patterns and C++ Idioms
 
 * 218-266
+* Writing Idiomatic C++
+  * GRASP: General Responsibility Assignment Software Patterns
+  * Automating scope exit actions using RAII guards
+  * Managing copyability and movability
+    * Copy ctor and copy assignment
+    * Move semantics
+  * Implementing non copyable types
+    * Examples: unique_ptr and mutex
+  * Rules of 3(Cpp98) and 5
+  * Rule of 0
+    * Set to default for all of them
+  * Using hidden friends
+  * Argument Dependent Lookup (ADL)
+  * Providing exception safety using the copy and swap idiom
+    * Safety levels:
+      * No guarantee
+      * Basic exception safety
+      * Strong Exception Safety
+      * No throw guarantee
+  * Writing niebloids/functors
+  * Policy based design idiom
+* Applying the curiously recurring template pattern
+  * AKA CRTP
+  * Dynamic (runtime) vs static(compiletime) polymorphism
+  * Type erasure: hiding type under a polymorphic interface
+* Implementing deducing this
+  * Explicit object parameter
+  * Cannot be declared static or virtual
+* Creating objects
+  * Using factories
+    * Factory methods/ named constructor idiom = member function that calls private constructor for you
+    * Controlled creation mechanism
+    * Factory functions
+    * Return type
+    * Factory Classes
+    * Using Builders
+      * When object needs multple steps to be created
+      * Named parameter idiom
+  * Using Prototypes
+    * Object Creation
+    * clone keyword
+* Tracking state and visiting objects in C++
+  * Change beavior through internal stateness
+  * std::variant and statically polymorphic double dispatch
+* Dealing with Memory efficiently
+  * Reducing dynamic allocations using SSO/SBO/SOO
+    * Dynamic allocaations Cost CPU cycles, risk memory fragmentation
+  * Save memory by herding COWs
+    * Copy on Write
+  * Leveraging polymorphic allocators
+    * Memory arenas/region/memory context
+    * Placement: allows you to explicily construct objects at specific memory addresses without additional allocations
+    * Monotonic Memory resources
+    * Pool Resources
+    * Ensure no unexpected allocations
+    * Wink out memory
 
 #### Ch 7: Building and Packaging
 
 * 266-300
+* Getting the most out of compilers
+* Abstracting the Build Process
+* Using External Modules
+* Reusing quality code
 
 #### Ch 8: Package Management
 
