@@ -47,8 +47,11 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Talk: m Jeff Dean’s well-known talk Numbers Everyone Should Know <https://www.cs.cornell.edu/projects/ladis2009/talks/dean-keynote-ladis2009.pdf>
 * Gregor Hohpe and Bobby Woolf’s Enterprise Integration Patterns
 * Arvid Norberg’s The ABI Challenge talk from C++Now 2019
-
-- Sean Parent’s talk Inheritance Is The Base Class of Evil from the GoingNative 2013 conference.
+* Sean Parent’s talk Inheritance Is The Base Class of Evil from the GoingNative 2013 conference.
+* GCC List of books about compilers
+* Rule of Chiel, ranking of fastest compile time operations
+* Tool: "include what you use"
+* IceCC as a distribution tool, and distcc
 
 ### Notes for Review
 
@@ -57,10 +60,12 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Practical c++ examples with modern tools: cmake integration with Sphinx and doxygen, breathe
 * Connecting a lot of relevant pieces that Id only heard in passing but not set foundation to compare/contrast, like service models
 * Review questions
+* Great recommendations for talks and additional resources of various mediums that serve as strong foundation for multiple disciplines, SW arch, platform deployment, C++ idioms, etc, compilers
 
 ### Questions
 
 * What are the traits of a RESTful service?
+* Single compilation unit build: it combines all cpp files into translation units, how is that not an absolute mess?
 
 ## Notes By Chapter
 
@@ -396,9 +401,46 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 
 * 266-300
 * Getting the most out of compilers
+  * Using multiple compilers
+    * Using multiple compilers help identify portability, optimize performance, catch more issues
+    * Clang = strives for complieance with C++ standards more than GCC
+    * GCC: try not to use gnu variants
+    * Cross Compilation
+    * CMake: for building testing packaging and distributing cross platform software
+    * Toolchain files
+  * Reduce build times
+    * Use a fast compiler
+    * Precompiled header
+    * Rethinkng Templates
+    * Rule of Chiel: some C++ constructs are most diffucult for compiler
+    * Ranking of compile time cost, fast to slow:
+      * Look up memoized type
+      * Add parameter to alias call
+      * Add parameter to a type
+      * Calling an alias
+      * Instantiating a type
+      * Instantiate a function template
+      * SFINAE
+    * Leveraging tools
+      * Single compilaion unit build, unity build. Unclide all cpp files into one translation unit
+        * Order of inclusion and composition matters
+        * Renders static keyword useless
+        * PCH =precompiled header
+      * Ninja as a faster generator tool
+      * Ccache
+      * IceCC: distribute builds across hosts
+    * Find potential code issues
+      * Ignore warnings from unrelated libraries: use a compiler switch
+      * Use -pedantic flag to be informed of all non-standard extensions youre using
+      * For Compiler flags, try to do `-Wall -Wextra -Wpedantic and Werror`
+  * Using compiler centric tools
+    * Static analysers, diagnostics, clang-tidy
 * Abstracting the Build Process
+  * CMake
+  * TODO: Pick up here pg 275
 * Using External Modules
 * Reusing quality code
+* Note: one of my favorite chapters!
 
 #### Ch 8: Package Management
 
@@ -412,20 +454,38 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 
 #### Ch 10: Writing Testable Code
 
+* 332-362
+
 #### Ch 11: Continuous Integration and Continuous Deployment
+
+* 362-394
 
 #### Ch 12: Security in Code Deployment
 
+* 394-428
+
 #### Ch 13: Performance
+
+* 428-492
 
 ### Part 4: Cloud-Native Design Principles
 
 #### Ch 14: Architecture of Distributed Systems
 
+* 492-526
+
 #### Ch 15: Interservice Communication
+
+* 526-588
 
 #### Ch 16: Containers
 
+* 588-626
+
 #### Ch 17: Observability
 
+* 626-648
+
 #### Ch 18 Cloud native design
+
+* 648-694
