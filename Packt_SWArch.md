@@ -38,6 +38,10 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * Argument Dependent Lookup ADL, koenig lookup
   * CRTP
   * SSO/SBO.SOO
+  * CMake modules
+  * Hyrum's law
+  * IFNDR: ill formed no diagnostic required
+  * Binary Module interfaces BMI
 
 ### Links/References
 
@@ -436,25 +440,118 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * Using compiler centric tools
     * Static analysers, diagnostics, clang-tidy
 * Abstracting the Build Process
-  * CMake
-  * TODO: Pick up here pg 275
+  * CMake = Build system generator
+    * Configuration Log
+    * Two styles of cmake file: variable based (obsolete), or target bsaed (modern)
+    * CMake Modules
+    * CMake Dir Variables
+    * Specify cmake targets
+      * Add executable
+      * Cmake antipattern = globs
+        * Breaks the separation of configure and generate phases. Globs are discouraged for source lists
+        * Wouldnt pick up new files by default
+        * CONFIgUrE_DEPENDS = tells CMake to rescan globs and reconfigure if dirs changed. But it slows down builds and adds runtime cost
+      * target_compile_features(name, PRIVATE/PUBLIC/INTERFACE cxx_std_17)
+        * Privte = internal requirement. Just visible to this target, not other targets that depend on it
+        * Interface = header only library, only gives a C++ API. Target that is not built
+        * Public = both
+      * set_target_properties: enfores standard and enable/disables c++ extensions
+      * add_library: creates static, object, and interface libraries, define imported libraries
+    * Specify the output directories
+      * set VARIABLE
+      * Dynamic link library files
+    * Generator expressions
+      * Cmake executes if statements at configure time, not build/install time
+      * Generator expressions in target_compile_definitions or target_include_directories
 * Using External Modules
+  * Top preference: bring in Conan to manage packages
+  * Fetching Dependencies
+    * Use CMake's fetchContent module
+    * Dependency providers
+  * Using or writing Find Scripts
+    * find_packge(boost)
+  * Ctest
 * Reusing quality code
 * Note: one of my favorite chapters!
 
 #### Ch 8: Package Management
 
 * 300 - 314
+* Intro to Package Management
+  * Ordinary vs development packages
+* Conan
+  * Open source, decentralized
+  * Conan Dependencies: conanfile.txt
+  * Conan targets from CMake
+  * Testing conanpackage
 
 #### Ch 9: The Future of C++ Code Reuse: Using modules
 
 * 314 - 330
+* History of headers
+  * Headers have been around since 1970s to organize code, separating interface from implementation
+  * ODR = One definition rule
+  * Hyrum's law
+
+* Consuming Modules
+  * Compiled into an object file and module interface file
+  * Extension .cppm
+
+* Creating your own module unit
+  * Module unit, module partition, module linkage, header unit added in Cpp20
+  * 2 module unit types: module interface unit and module implementation unit
+  * Fragments = section of module interface unit
+  * Submodules
+  * C++ Linkage: internal and external, and module
+  * IFNDR: ill formed no diagnostic required
+* Binary Module interfaces BMI
+  * Or CMI Compiled module interface
+  * Or Cang Precompiled module PCM
 
 ### Part 3: Architectural Quality Attributes
 
 #### Ch 10: Writing Testable Code
 
 * 332-362
+* Benefits of Testing Code
+  * Testing Pyramid of Functional Tests: Unit test(code), Integration test(design), Systme test (requirements), Acceptance Testing (end to end client needs)
+  * Non Functional Tests
+    * Performance
+    * Endurance
+    * Security
+    * Availability
+    * Integrity
+    * Usability
+  * Regression Testing
+    * RTS = Regression test selection strategy, to identify and run only suspected relevant tests
+  * Root cause analysis: 5 whys
+    * Defense in depth
+* Runtime Testing Frameworks
+  * Google test, google mock
+  * Catch2 for behavior driven development
+  * Doctest
+  * Boost.test
+  * DrogonTest
+* Compile time testing techniques
+  * Template metaprograming
+  * constexpr gives more control of compile time logic, and consteval gives more control of how it is evaluated during compilation
+  * Hard to test compile time programming
+  * static_assert
+* Understanding test doubles
+  * Hard to test third party component interaction
+  * Different Test Doubles: stubs and fakes
+  * TEST_F macro
+* Test driven class design
+  * Not all classes can be tested easily
+  * Tests and Design clash
+  * Write tests first
+  * Defensive programming
+    * Type specificity
+    * explicit keyword protects from implicit casts
+* Automating app tests for CICD
+  * Promote tests from full suite to gating suite
+* Automating infrastructure validation for CICD
+  * Serverspec, Testingfra, Goss, Terratest
 
 #### Ch 11: Continuous Integration and Continuous Deployment
 
