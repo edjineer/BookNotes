@@ -42,6 +42,19 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * Hyrum's law
   * IFNDR: ill formed no diagnostic required
   * Binary Module interfaces BMI
+  * bdwgc
+  * Fils unbelievable garbage colector FUGC
+  * GSL
+   gherkin, and cucumber framework
+  * Ansible and deployment as code
+  * Idempotence
+  * Packer and Terraform for infrastructure
+  * Configuration drift
+  * CSP C++ Server pages
+  * DVL Dynamic view loading
+  * Remote code execution
+  * ASan, LSan, ThreadSan, MSan, UBSan
+* Measurement tools
 
 ### Links/References
 
@@ -56,6 +69,10 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Rule of Chiel, ranking of fastest compile time operations
 * Tool: "include what you use"
 * IceCC as a distribution tool, and distcc
+* The cathedral and the bazaar from ESR
+* C++ Core Guidelines: <https://github.com/isocpp/CppCoreGuidelines>
+* Herb Sutter C++ Securuty article: <https://herbsutter.com/2024/03/11/safety-in-context/>
+* CVE List <https://cve.mitre.org/>
 
 ### Notes for Review
 
@@ -65,6 +82,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Connecting a lot of relevant pieces that Id only heard in passing but not set foundation to compare/contrast, like service models
 * Review questions
 * Great recommendations for talks and additional resources of various mediums that serve as strong foundation for multiple disciplines, SW arch, platform deployment, C++ idioms, etc, compilers
+* General concepts, but with C++ examples
 
 ### Questions
 
@@ -557,13 +575,146 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 
 * 362-394
 
+* CICD Relies on good test coverage
+  * CI is more smoke tests
+  * CD is more end to end
+
+* Understantind and implementing CI
+  * CI = shortening integration cycles by merging changes into code frequently
+  * Integration several times a day
+  * Quick feedback loop
+  * Release early and often
+    * Open source movement
+    * Rely on automate tests
+  * CI Merits
+    * integrate work of multiple devs into a single repo
+    * prevents "works on my machine" excuse
+    * Example wiht gitlab
+* Gates
+  * Automated checks; unit tests
+  * Linters, code formatters, static analysis, git hook for running tools before commit
+  * Reviewing code
+    * Follow project guidelines, fit in architecture, etc
+    * Peer review and architect reviews
+    * Cross team expert review
+    * Async reviews or in person
+    * MR/PRs
+* Test driven automation
+  * CI and continuous testing are hand in hand
+  * Behavior driven development
+    * Does change satisfy requirements?
+    * Cucumber framework, or Gherkin
+  * Writing tests for CI
+    * Unit Tests = Self contained (no external dependecies), and run in parallel
+* Managing deployment as code
+  * Handling deployment with version controlled code
+  * Ansible= config management tool that supports deployment as code
+    * Shell scripts good for cimple deployments
+    * Ansible does better for complexity
+    * Integrates with CICD through idempotence
+    * Use reusable components roles and playbooks
+    * Runs in both push and pull models
+* Building deployment code
+* Understanding and implementing CD
+  * CD = Automated process that originates when someone pushes a change, and finishes with change successfully deployed and tests passing
+  * GitOps
+  * Git Actions for precommit workflow
+  * Implement pipeline with github actions
+
+* Using immutable infrastructure
+  * Immutable infrastructure
+  * Treat infrastrucutre as any other artifact
+  * Deploy in virtual machine
+  * Hashicorp tools: Packer and Terraform
+  * Configuration drift is obsolete for immutable infra
+  * Safer upgrades
+  * Would also need to do load balancing and have redundancy in order to work well with immutable infra
+  * Instance images with Packer Example: use Elastic block store builder
+  * Orchestrate infra with Terraform: build an EC2 instance bsaed on packer using terraform
+
 #### Ch 12: Security in Code Deployment
 
 * 394-428
+* Security-conscious design
+  * Regulations: GDPR, CCPA, CPRA, PIPL, APPI
+  * Making interfaces easy to use and hard to misuse
+    * Interface: connection between elements
+    * Avoid: ambiguous names of parameters, using output params for results, too many parameters
+    * Qsort lacks parametric polymorphism
+    * Monomorphization
+  * Enabling automatic resource management
+    * Poor resource management leads to system instability like memory leaks, race conditions, deadlocks
+    * Garbage collection, RAII
+    * Guidelines support library
+  * Drawbacks of concurrency
+    * Gives illusion of simultaneity
+    * Concurrency ~= parallelism (good diagram pg 402)
+    * RMW primatives: read modify write, and compare-and-swap
+  * Secure Coding guidelines
+    * GSL helps with this. Header only library to use defined types
+    * Defensive coding and validation
+      * Avoid using C API directly
+      * Intelligent reuse of existing code
+      * Defensive programming is not paranoid programming
+      * Use Expects() and Ensures()
+      * C++ Server pages
+    * Common Vulnerabilities (OWASP)
+      * Injection
+      * Broken authentication
+      * Sensitive data exposure
+      * XML External entities
+      * Broken access control
+      * Security misconfiguration
+      * XSS
+      * Insecure deserialization
+      * Using components with known vulnerabilities
+      * Insufficient logging and monitoring
+* Checking whether dependencies are secure
+  * 2 forms of dependencies: external and internal
+  * CVE List
+    * Common vulnerabiities and exploits
+    * Maintained by CVE Numbering authorities and Computer emergency response teams (CERTS)
+  * Automated scanners, OWASP dependency check
+  * Automated dependency upgrade management: Synk and renovate scan
+* Hardening Code
+  * Use modern C++ constructions over C equivalents
+  * Hardening = reduce system's surface of vulnerability, increase robustness of available functions
+  * Tools = firewalls, patches, intrusion detection systems
+  * Security oriented memory allocator
+    * Heap overflow
+    * FreeGuard, hardened_malloc, Scudo
+  * Automated checks
+    * Compiler warnings
+    * Static analysis
+      * Static application security testing SAST
+      * Cppcheck, flawfinder, LGTM, SonarQube
+    * Eliminating dangling references in C++ with lifetime bounds
+    * Dynamic analysis
+      * Valgrind, Application Verifier
+      * Sanitizers
+        * ASan, LSan
+      * Fuzz Testing
+    * Process isolation and sandboxing
+* Hardening environment
+  * Linking strategies and their security implications
+  * Address space layout randomization ASLR
+  * DevSecOps: Devops with security in mind from beginning
 
 #### Ch 13: Performance
 
 * 428-492
+
+- Measuring Performance
+  * Prepare for accurate and repeatable performance measurements
+    * Put machine into performance mode over power saving mode
+  * Leveraging different types of measuring tools
+    * Benchmarks = measure execution speed in prepared tests
+    * Microbenchmarks,simulations, replays, industry standard benchmarks, profilers, tracing
+  * Using Microbenchmarks
+* Helping the compiler generate performant code
+* Parallelizing computations
+* Using Coroutines
+* Implementing efficient algorithms
 
 ### Part 4: Cloud-Native Design Principles
 
