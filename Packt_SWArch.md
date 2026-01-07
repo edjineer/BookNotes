@@ -56,6 +56,11 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * ASan, LSan, ThreadSan, MSan, UBSan
 * Measurement tools
 * Memcached, redis
+* Relationship between OSI and TCP/IP
+* PRotobuff
+* Hsitory of REST
+* URI vs URL
+* HATEOAS
 
 ### Links/References
 
@@ -763,7 +768,7 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 
 * 492-526
 
-- Understanding SOA
+* Understanding SOA
   * SOA = Service oriented architecture
   * ESB = enterprise service bus
   * Four properties of service = represents a business activity with a defined outcome, self contained, opaque to users, may be composed of other services
@@ -778,6 +783,7 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
     * Message brokers
   * Cloud computing
   * Challenges of SOA: costs for RPC, Conway's law
+
 * Diving inro microservices
   * Benefits of microservices: modularity(mono repo or multi repo?), scalability, flexibility, integration with legacy systems, distributed development,
   * Disadvantages: Reliance on mature devOps, harder to debug, additional overhead,
@@ -807,10 +813,61 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 * 526-588
 
 - Intro to ISC
+  * ISC is a subset of IPC
+  * OSI
+  * TCP/IP is 4 level variant of OSI
+
 * Interaction styles
+  * Client server interactions
+  * Synchronous communication or async
+  * One to one, one to many, many to one, many to many
 * Messaging Systems
+  * Low overhead messaging systems
+    * MQTT
+    * ZeroMQ
+  * Brokered messaging systems
+    * Apache Kafka, RabbitMQ, event driven architecture
 * Using Web Services
+  * Tools for working with webservices: wget, curl, libcurl, testing framework, browser extensions, api clients like bruno/hopscotch, testing sw, packet analyzers like wireshark
+  * Webapi payload formats
+    * Protobuff, bson, orc
+  * XML Based web services
+    * XML-RPC and SOAP
+    * Simple object access protocol
+    * URI and WSDL
+    * UDDI
+    * SOAP libraries: Apache axis and gSOAP
+  * JSON based web services
+    * JSON-RPC
+  * Web API Design approaches
+    * REST: representational state transfer
+      * architectural style
+      * Roy fielding
+      * Defines constraints for implementing web service
+        * Client server architecture
+        * Statelessness
+        * Cachability
+        * Layered System
+        * Uniform interface
+          * Resource identification
+          * Manipulation of resources through representations
+          * Self descriptive messages
+          * Hypermedia as engine of Application state HATEOAS
+        * REST uses HTTP as transport protocol, uris represent resouces, and HTTP verbs for actions
+          * POST, GET, PATCH, DELETE, PUT
+        * Group of resources = collection
+        * CRUD
+    * GraphQL
+      * query language based API paradigm
+      * Manipulates data directly, allows clients to structure responses
+      * Request types: query, mutation, subscriptions
+      * Disadvantages: steep learning curve, increased server load, security risks, resolver reliability, complexity in caching, monitoring difficulty, N+1 problem
+    * API Description languages
+      * OpenAPI/Swagger
+      * AsynAPI
 * RPCs
+  * Thrift (non-HTTP based)
+  * gRPC (Http based)
 
 #### Ch 16: Containers
 
