@@ -55,6 +55,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
   * Remote code execution
   * ASan, LSan, ThreadSan, MSan, UBSan
 * Measurement tools
+* Memcached, redis
 
 ### Links/References
 
@@ -762,9 +763,54 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 
 * 492-526
 
+- Understanding SOA
+  * SOA = Service oriented architecture
+  * ESB = enterprise service bus
+  * Four properties of service = represents a business activity with a defined outcome, self contained, opaque to users, may be composed of other services
+  * ESB from peripheral component interconnect, PCI, computer bus
+  * MOM = message oriented middleware
+  * ESB Component roles: maintain service redundancy, route messages between services, monitor message exchange, resolve contention between components, enforce quality of service
+  * Benefits of ESB= better scalability, distributed workload, configuration over implementation, easier to design loose couple services, replaceable services, built in redundancy capability
+  * Disadvantages: single point of failure, complex config,message queueing
+  * Web Services
+  * Messaging and streaming
+    * Message queues, used for ISC interservice communication
+    * Message brokers
+  * Cloud computing
+  * Challenges of SOA: costs for RPC, Conway's law
+* Diving inro microservices
+  * Benefits of microservices: modularity(mono repo or multi repo?), scalability, flexibility, integration with legacy systems, distributed development,
+  * Disadvantages: Reliance on mature devOps, harder to debug, additional overhead,
+  * Design patterns
+    * Decomposition patterns
+    * Decomposition by business capability
+    * Decomposition by subdomain
+    * Database per service pattern
+  * Deployment strategies
+    * Single service per host
+    * Multiple services per host
+* Design considerations for scalable microservices
+  * Address scalability bottlenecks: memory, storage, computing
+  * Outsourcing memory management: memcached, redis
+  * Outsourcing storage: AWS S3
+  * Outsourcing computing: SWIG: simpified wrapper interface generator
+  * Scaling microservices
+    * Single service per host deployment
+    * Scaling multiple sercices per host
+* Leveraging managed services and cloud providers
+  * VPS = virutal private server
+  * cloud sdk
+  * Infrastructure as Code
+
 #### Ch 15: Interservice Communication
 
 * 526-588
+
+- Intro to ISC
+* Interaction styles
+* Messaging Systems
+* Using Web Services
+* RPCs
 
 #### Ch 16: Containers
 
