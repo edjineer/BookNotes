@@ -73,6 +73,10 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * C++ Core Guidelines: <https://github.com/isocpp/CppCoreGuidelines>
 * Herb Sutter C++ Securuty article: <https://herbsutter.com/2024/03/11/safety-in-context/>
 * CVE List <https://cve.mitre.org/>
+* Chandler Carruth, Tuning C++: Benchmarks, and CPUs, and Compilers! Oh My! (YouTube video),
+CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
+* Hubert Matthews, Optimising a Small Real-World C++ Application (YouTube video), ACCU 2019:
+<https://www.youtube.com/watch?v=fDlE93hs_-U>
 
 ### Notes for Review
 
@@ -704,17 +708,53 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 
 * 428-492
 
-- Measuring Performance
+* Measuring Performance
   * Prepare for accurate and repeatable performance measurements
     * Put machine into performance mode over power saving mode
   * Leveraging different types of measuring tools
     * Benchmarks = measure execution speed in prepared tests
     * Microbenchmarks,simulations, replays, industry standard benchmarks, profilers, tracing
   * Using Microbenchmarks
+    * Google benchmark as a tool
+    * Compiler explorer and quickbench
+    * Argument capture
+    * Vary input sizes
+  * Using catch2
+  * Using nanobench
+  * Choosing which benchmark to measure and optimize
+    * only on code that matters
+  * Create performance tests using benchmarks
+  * Performance profiling
+    * help analyze where performance numbers came from
+    * 2 profilers: instrumentation and sampling
+  * Tracing
+    * Valuable for distributed systems
+    * Log execution path of code
+
 * Helping the compiler generate performant code
+  * Optimizing whole programs
+    * Link time optimization
+  * Optimize based on real world usage patterns
+    * Profile guided optimization
+    * Profile direscted feedback
+    * Feedback directed optimization
+  * Cache friendly code
+    * flat vd node based implementations
+  * Design code with data in mind
 * Parallelizing computations
+  * Amdahls law
+  * Gustafson's law
+  * Dr Gunthers universal scalability law
+  * Choose between threads and processes
+  * Using standard parallel algorithms
+  * OpenMP and MPI
 * Using Coroutines
+  * Coroutines ccan suspend and resume execution
+  * Coroutines in c++20 are stackless
+  * C++ keywords for coroutines: co_await, co_yield, and co_return
+  * cobalt
 * Implementing efficient algorithms
+  * Recursion and tail recursion
 
 ### Part 4: Cloud-Native Design Principles
 
