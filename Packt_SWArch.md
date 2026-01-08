@@ -61,6 +61,9 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Hsitory of REST
 * URI vs URL
 * HATEOAS
+* Twelve factor app methodology
+* Docker architecture diagram pg 597
+* Kubernetes as an orchestrator of containers
 
 ### Links/References
 
@@ -812,7 +815,7 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 
 * 526-588
 
-- Intro to ISC
+* Intro to ISC
   * ISC is a subset of IPC
   * OSI
   * TCP/IP is 4 level variant of OSI
@@ -872,6 +875,93 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 #### Ch 16: Containers
 
 * 588-626
+
+* Reintro to Containers
+  * Docker and Kubernetes preceded by Linux containers
+  * Linux equivalents = chroot/change root
+  * Goal = isolate one execution environment from another
+  * Usually share OS kernel as host (different from virtualized envs)
+  * Deployment = unpack the continer image
+  * Exploring Container types
+    * App container, OS container, VM
+  * Rise of microservices and containers
+    * Twelve factor app methodology best practices to enable portable and resilient apps deployed to the web
+      * Exactly one Code base
+      * Dependencies are explicit and isolated
+      * Config is stored in the environment
+      * Backing services are treated as attached resources
+      * Build, release, and run: strictly separated in CI/CD pipelines
+      * Processes: apps run as one process
+      * Port bingding: self contained services are exposed via port binding
+      * Concurrency: scale app pool of one or more stateless processes
+      * Disposability
+      * Dev Prod parity
+      * Logs
+      * Admin processes
+    * ASN = Abstract syntax notation one
+  * Choosing when to use containers
+    * Benefits of containers
+      * Less overhead during runtime
+      * Offer smaller images
+      * Easier to orchestrate than regular binaries
+      * Isolation
+      * Standardized runtim means higher portability
+    * Disadvantages of containers
+      * Tough migration if app does not use IPC or is stateful
+      * Persistent storage
+      * Hard for Windows
+* Building Container images
+  * Docker architecture and stack
+  * Container images explained
+    * Containers: dynamic, running instances from container image
+    * Container images: static, composed of layers that are snapshots of filesystem changes and metadata for env vars
+    * Docker has UFS = Union file system to manage layes
+  * Building container images with dockerfiles
+    * Describes operatiosn needed for making the resulting image
+    * Use `docker build` to make image from dockerfile
+  * Naming and distributing images
+    * 3 elements to a name: registry name, image name, and tag
+    * Default registry is docker.io
+    * Amazon's ECR: elastic container registry, azure container registry, Google artifct registry, jfrog, etc
+  * Compiled applications and containers
+    * Install all dependencies first, copy source files, compile as one: downside is a lot of uneccessary files
+  * Targeting multiple architectures
+    * Docker manifest or buildx
+  * Alternative tools to build application containers
+    * Buildah, podman, skopeo
+    * ansible-bender
+  * Integrating containers with cmake
+    * Configure dockerfile with CMake
+    * Build container images with CMake
+* Practical runtime considerations for containers
+  * Containers give flexibility in testing and deployment environments
+  * Fit well with CICD pipelines
+  * Easy t oadd nodes
+  * Runtime libraries inside containers
+    * Name service switch
+  * Alternative container runtimes
+    * Kata cotainer initiative
+* Understanding container orchestration
+  * Orchestrator keeps track of all nodes, montoris health and status
+  * Self hosted solutions
+    * Kubernetes: orchestroator
+      * Can use docker commands to interact with kubernetes clusters
+      * Docker works on a container, Kubernetes works on a Pod
+      * Pod = one or moer containers that share storage volumes, networking resources, and single cluster IP Addresses
+      * Containers in a pod can communicate with each other over localhost
+      * Pods in a cluster can communicate without Network address translation
+      * Networking model in Kubernetes is different than docker: Docker = fwd ports, kuberneters needs a service resource
+      * Kubernetes is declarative and eventally consistent
+      * CNCF = cloud native computing foundation
+    * Docker swarm
+      * Docker engine comes with Docker swarm orchestrator
+    * Nomad: three jobs: service, batch, or system
+    * OpenShift
+  * Managed Services
+    * AWS ECS
+    * Amazon EC2
+    * AWS Fargate
+    * Azure Service Fabric
 
 #### Ch 17: Observability
 
