@@ -98,6 +98,8 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 * Great recommendations for talks and additional resources of various mediums that serve as strong foundation for multiple disciplines, SW arch, platform deployment, C++ idioms, etc, compilers
 * General concepts, but with C++ examples
 * Modern tools like drogon, prometheus, etc. Gives overview of available tools, compares contrasts, practical c++ examples
+* Cloud native
+* Forward and reverse proxy
 
 ### Questions
 
@@ -1004,7 +1006,81 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 
 * 648-694
 * Understanding cloud native
+  * Just running in the cloud doesnt make something cloud native, it can still be on-prem
+  * Cloud native = distrubuted, loosely coupled, scalable
+  * CNCF = Cloud native computing foundation
+    * Hosts kubernetes
+    * Cloud native apps are built within application containers
+  * Cloud as an operating system
+    * VMs are rarely used in cloud native design
+    * Cloud native apps are web and mobile first
+  * Load balancing
+    * Spreads requests across cluser of services
+    * Improves responsiveness and availability
+    * More throughput and less downtime
+  * Reverse and forward proxies
+    * Reverse = added before a load balancer; acts on bealf of servers handling requests
+    * Benefits of reverse proxy: security (since it hides address of your server), flexibility and scalability, caching, compression, SSL termination
+  * Service Discovery
+    * Allows for automatic detection of services on a network
+    * Either client side service or server side service discovery
+    * LBaaS load balancer as a service
 * Using Kubernetes to orchestrate cloud native workloads
+  * Features of kubernetes: autoscaling of apps, configurable networking, batch job execution, unified upgrading of applications, declarative configuration
+  * Flexible, and can scale
+  * Kubernetes structure
+    * Cluster is usually 6 machines or more. Three are the control plane, three are worker nodes
+    * Control Plane: Deciddes on actions and delegates
+      * Runs API Server, Scheduler, etcd, and Additional componenets specific to needs
+    * Worker nodes: Container runtime, kubelet, kube-proxy
+  * Approaches to deploying kubernetes
+    * Kubernetes operations
+  * Understanding the Kubernetes concepts
+    * Container
+    * Pod = one or more containers. All containers in a pod share same network interfaces, volumes and resources
+    * Deployment: manages pod and the life cycle
+    * Daemonset = controller, manages where pods are distributed
+    * Jobs = one-off tasks, restart automatically when containers terminate
+    * CronJobs = run periodically within a cluster
+    * Services
+  * Managing Kubernetes declaratively
+    * Supports probes to monitor app health
+  * Kubernetes networking: container network interface
+    * Container to container communication
+      * Control groups in linux kernel
+    * Pod to pod communication
+      * Each pod has own IP address
+    * Pod to service communication
+    * External to internal communication
+  * Considerations before adopting Kubernetes
+    * Infrastructure costs
+    * Operations costs
+    * Education costs
 * Observability in cloud native distributed systems
-* Connecting services with a service msh
+  * Tracing is essential
+  * Instrumenting an App with OpenTelemetry Operator
+* Connecting services with a service mesh
+  * Service Mesh Basics
+    * Trades off some resources for an automated and centrally controlled solution to challenges
+    * Features are abstracted out into a dedicated infra layer
+    * Gives greater control
+  * Sample Solutions
+    * Istio
+    * Linkerd
+    * Consul service mesh
 * Going GitOps
+  * Extension of CICD where it is more transparent
+  * Principles
+    * Declarative Description
+      * Object has entry, connections, and a sink
+      * Entire state of ststem is treated as code
+    * System state versioned in Git
+    * Auditability
+    * Integration with components
+    * Configuriation drift prevention
+  * Benefits:
+    * Increased productivity
+    * Better development experience
+    * Higher stability and reliability
+    * Improved security
+  * Gitops tools: FluxCD, ArgoCD, Jenkins X
