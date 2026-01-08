@@ -64,6 +64,7 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Twelve factor app methodology
 * Docker architecture diagram pg 597
 * Kubernetes as an orchestrator of containers
+* sdplog
 
 ### Links/References
 
@@ -96,6 +97,7 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 * Review questions
 * Great recommendations for talks and additional resources of various mediums that serve as strong foundation for multiple disciplines, SW arch, platform deployment, C++ idioms, etc, compilers
 * General concepts, but with C++ examples
+* Modern tools like drogon, prometheus, etc. Gives overview of available tools, compares contrasts, practical c++ examples
 
 ### Questions
 
@@ -967,6 +969,42 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 
 * 626-648
 
+* Challenges are finding root causes of issues
+
+* Logging
+  * Audit logging/audit trailing
+  * Logging with microservices
+    * Logging in C++ with sdplog
+      * Features: multiple sinks, daily log files, colored console logging, QT widget logging, thread option, sync and async logging, log rotation
+      * Automated renaming and archiving
+    * Unified logging
+      * Layer to fwd logs to destination
+    * Logstash
+      * Owned by elastic, written in ruby
+    * Filebeat
+    * Fluentd, Fluentbit
+    * Vector
+  * Log aggregation
+    * Storing and accessing the logs
+    * Elastisearch or Loki
+  * Log visualization
+    * Kibana or Grafana
+* Monitoring
+  * Collecting and analyzing data to imrpove health and behavior of a system
+  * 3 Interesting metrics: availabiltiy, resource utilization, performance
+  * Implementing application metrics
+    * prometheus
+  * Monitoring health checks: liveness, readiness, startup probes, responsiveness
+* Tracing
+  * Jaeger and OpenTracing
+  * Zipkin
+  * OpenTelemetry
+
 #### Ch 18 Cloud native design
 
 * 648-694
+* Understanding cloud native
+* Using Kubernetes to orchestrate cloud native workloads
+* Observability in cloud native distributed systems
+* Connecting services with a service msh
+* Going GitOps
