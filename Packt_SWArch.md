@@ -1,4 +1,4 @@
-# Software Architecture wit h C++
+# Software Architecture with C++
 
 Designing robust C++ systems with modern architectural practices, 2nd Edition
 
@@ -65,6 +65,8 @@ Authors: Gavrilian, Ostrowski, Gaczkowski
 * Docker architecture diagram pg 597
 * Kubernetes as an orchestrator of containers
 * sdplog
+* Cloud native
+* Forward and reverse proxy
 
 ### Links/References
 
@@ -91,15 +93,13 @@ CppCon 2015: <https://www.youtube.com/watch?v=nXaxk27zwlk>
 ### Notes for Review
 
 * Leave Review here: <https://packt.link/r/1803243015>
-* Practical intro to software architecture essentials, ig picture view
+* Practical intro to software architecture essentials, big picture view
 * Practical c++ examples with modern tools: cmake integration with Sphinx and doxygen, breathe
 * Connecting a lot of relevant pieces that Id only heard in passing but not set foundation to compare/contrast, like service models
 * Review questions
 * Great recommendations for talks and additional resources of various mediums that serve as strong foundation for multiple disciplines, SW arch, platform deployment, C++ idioms, etc, compilers
 * General concepts, but with C++ examples
 * Modern tools like drogon, prometheus, etc. Gives overview of available tools, compares contrasts, practical c++ examples
-* Cloud native
-* Forward and reverse proxy
 
 ### Questions
 
