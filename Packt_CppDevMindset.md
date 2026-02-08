@@ -12,13 +12,17 @@ Learn Computational, Algorithmic, and Systems thinking to become a better C++ Pr
 
 ### Links/References
 
+- Chandler Carruth Going Nowhere Fast (<https://youtu.be/2EWejmkKlxs?si=diXN9>
+4gO9X0JfUM)
+
 ### Notes for Review
 
 - Very well organized, that is in general for packt
 - A little bit too much on "this is problem solving, here are games about problem solving"
 - Beginner, bite sized, back to basics of general high level programming
--
--
+- More overlap in redundancy in chapters, which means jumping to them isnt a bad idea
+- First section is big picture; hardware, machine details, operating system level. Good foundation to build off of since C++ has so many utilities to optimize based on that low-level
+- Intersection with Hpca
 
 ### Questions
 
@@ -112,19 +116,83 @@ Learn Computational, Algorithmic, and Systems thinking to become a better C++ Pr
 
 ### Ch 4: Understanding the Machine
 
+108-144
+
+- Understanding modern processor design
+  - Components
+    - aLU = basic logic, operates on registers
+    - Registers obtain data from memory
+    - MMU = memory management unit
+    - Instruction decoder
+    - Cache memory
+    - Floating point unit
+    - PCI bus
+  - Instruction architectures
+    - ISA, ARM, RISC
+    - CPUID
+  - Processor threads
+- Storage Spectrum
+  - RAM
+  - Registers: holds integer or fp value
+  - Cache memory
+  - Cache lines
+  - Query processor for cache size
+  - Main memory
+  - Dual in-line memory models, CAS latenc
+- SIMD
+  - SIMD = single instruction multiple data extensions
+  - Function versioning
+  - Memory alignment
+  - Aliasing
+- Branch prediction and speculative execution
+  - Speculation based vulnerabilities
+- OS
+  - Kernel Mode
+  - VM, divided into pages
+  - TLB, thrashing, transparent huge pages
+  - Interacting with the Scheduler
+    - CPU affinity
+
 ### Ch 5: Data Structures
+
+144-170
+
+- Computer memory, pointers, indirection
+  - Memory is stack and heap, stack frames, head of stack lives in low level cache
+  - RAII automates memory management
+  - Infinite Precision Integers
+  - Arrays
+  - Structured memory
+  - Allocation and allocators
+  - Smart Pointers
+    - Object that holds a pointer to another object and manages its lifetime
+    - unique_ptr,shared_ptr, weak references
+- Linear memory, vectors, stacks, queues
+  - Structure of arrays vs array of structures
+  - Stacks and queues
+  - Vectors
+  - Static vectors
+  - Small vectors
+  - Views and Spans, management agnostic views into a block of linear data
+- Linked lists
+  - Stable vectors; hybrid between a linked list and standard vector
+- Maps and sets
+  - Flat map and flat sets: set that is implemented in a vector. Added in c++23
+  - Hash functions
+  - Hashsets and hash maps; handle collisions; load factor, rehash
+  - Map benchmarks
 
 ### Ch 6: Reusing your code and modularity
 
-170
+170-188
 
 ### Ch 7: Outlining the challenge
 
-188
+188-200
 
 ### Ch 8: Building a simple command line interface
 
-200
+200-216
 
 ### Ch 9: Reading Data from Different Formats
 
