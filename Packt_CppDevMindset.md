@@ -12,8 +12,8 @@ Learn Computational, Algorithmic, and Systems thinking to become a better C++ Pr
 
 ### Links/References
 
-- Chandler Carruth Going Nowhere Fast (<https://youtu.be/2EWejmkKlxs?si=diXN9>
-4gO9X0JfUM)
+- Chandler Carruth Going Nowhere Fast (<https://youtu.be/2EWejmkKlxs?si=diXN94gO9X0JfUM>)
+- Linkers and loaders book
 
 ### Notes for Review
 
@@ -184,7 +184,25 @@ Learn Computational, Algorithmic, and Systems thinking to become a better C++ Pr
 
 ### Ch 6: Reusing your code and modularity
 
+Good overview, one of better chapters
+
 170-188
+
+- Libraries: static and shared
+  - Static Libraries: contain raw compile code plus metaata that allows linker to find and incorporate functions and classes
+  - Shared libraries: contains code and metadata, but code not pulled into binary
+  - Static = advantage for speed, but might be larger size
+  - Libraries = only template, doesnt require compiled component, header only
+  - Public and private
+    - symbol versioning
+    - Inline namespaces
+  - Dynamic libraries
+  - Exporting Symbols
+- Designing stable interfaces
+  - Public interfaces should be stable
+  - TODO: Pick up here
+- Using C++ modules
+- Separating components in the build system
 
 ### Ch 7: Outlining the challenge
 
